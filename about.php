@@ -1,6 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
-<!-- Mirrored from themeholy.com/php/frutin/demo/about.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:49:01 GMT -->
 
 <head>
     <meta charset="utf-8">
