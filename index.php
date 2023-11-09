@@ -1,11 +1,14 @@
+<?php
+ob_start();
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
-<!-- Mirrored from themeholy.com/php/frutin/demo/error.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:49:18 GMT -->
+<!-- Mirrored from themeholy.com/php/frutin/demo/home-mega-shop.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:48:11 GMT -->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Frutin - Organic and Healthy Food php Template - 404 - Error Page</title>
+    <title>Frutin - Organic and Healthy Food php Template - Home Mega Shop</title>
     <meta name="author" content="Frutin">
     <meta name="description" content="Frutin - Organic and Healthy Food php Template">
     <meta name="keywords" content="Frutin - Organic and Healthy Food php Template">
@@ -37,30 +40,66 @@
 </head>
 
 <body>
+    <?php
+    include('header.php');
+    if (isset($_GET['act'])) {
+        $act  = $_GET['act'];
 
-    <div class="breadcumb-wrapper" data-bg-src="assets/img/bg/breadcumb-bg.jpg">
-        <div class="container">
-            <div class="breadcumb-content">
-                <h1 class="breadcumb-title">404 - Error Page</h1>
-                <ul class="breadcumb-menu">
-                    <li><a href="home-organic-farm.php">Home</a></li>
-                    <li>404 - Error Page</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <section class="space">
-        <div class="container">
-            <div class="error-img"><img src="assets/img/theme-img/error.svg" alt="404 image"></div>
-            <div class="error-content">
-                <h2 class="error-title"><span class="text-theme">OooPs!</span> Page Not Found</h2>
-                <p class="error-text">Oops! The page you are looking for does not exist. It might have been moved or deleted. Please check and try again.</p><a href="home-organic-farm.php" class="th-btn"><i class="fal fa-home me-2"></i>Back To Home</a>
-            </div>
-        </div>
-    </section>
+        switch ($act) {
+            case 'home-mega-shop':
+                include('home-mega-shop.php');
+                break;
+            case 'shop':
+                include('shop.php');
+                break;
 
+            case 'shop-details':
+                include('shop-details.php');
+                break;
 
+            case 'cart':
+                include('cart.php');
+                break;
+
+            case 'checkout':
+                include('checkout.php');
+                break;
+
+            case 'wishlist':
+                include('wishlist.php');
+                break;
+
+            case 'faq':
+                include('faq.php');
+                break;
+
+            case 'error':
+                include('error.php');
+                break;
+
+            case "blog":
+                include ('blog.php');
+                break;
+            case "login":
+                header('Location: login.php');
+                break;
+            case "profile":
+                    include('profile.php');
+                    break;
+            default:
+                include('home-mega-shop.php');
+                break;
+
+        }
+    } else {
+        include('home-mega-shop.php');
+    }
+    include('footer.php');
+
+    ?>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
-<!-- Mirrored from themeholy.com/php/frutin/demo/error.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:49:19 GMT -->
 
 </html>
