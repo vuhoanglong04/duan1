@@ -15,7 +15,7 @@
   <meta name="keywords" content="" />
   <meta name="author" content="yoursite.com" />
 
-  <title>Authfy : Login-01</title>
+  <title>Login</title>
 
   <link rel="shortcut icon" type="image/icon" href="assets/img/favicon-16x16.html" />
   <link rel="stylesheet" href="assets/css/login1-style.css">

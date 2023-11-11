@@ -133,6 +133,4 @@
         </svg></div>
 
 </body>
-<!-- Mirrored from themeholy.com/php/frutin/demo/home-mega-shop.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:48:59 GMT -->
-
 </html>

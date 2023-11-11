@@ -56,7 +56,7 @@
                          
                                     <div class="form-group">
                                         <br>
-                                        <button class="btn btn-lg btn-block login" style="background-color:#017d03;color:white;font-weight:600" type="submit">Login with email</button>
+                                        <button class="btn btn-lg btn-block login" style="background-color:#017d03;color:white;font-weight:600" type="submit">Login</button>
                                     </div>
                                 </form>
                             </div>

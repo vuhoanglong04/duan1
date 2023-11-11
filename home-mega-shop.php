@@ -37,7 +37,7 @@
 </head>
 
 <body>
-   
+
     <div class="th-hero-wrapper hero-3" id="hero">
         <div class="shape-mockup" data-top="0" data-left="0"><img src="assets/img/shape/vector_shape_8.png" alt="shape"></div>
         <div class="shape-mockup" data-top="0" data-right="0"><img src="assets/img/shape/vector_shape_9.png" alt="shape"></div>
@@ -1095,8 +1095,8 @@
             </div>
         </div>
     </section>
- 
-    
+
+
 </body>
 <!-- Mirrored from themeholy.com/php/frutin/demo/home-mega-shop.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:48:59 GMT -->
 

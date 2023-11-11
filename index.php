@@ -40,11 +40,11 @@ ob_start();
 </head>
 
 <body>
+
     <?php
     include('header.php');
     if (isset($_GET['act'])) {
         $act  = $_GET['act'];
-
         switch ($act) {
             case 'home-mega-shop':
                 include('home-mega-shop.php');
@@ -78,18 +78,17 @@ ob_start();
                 break;
 
             case "blog":
-                include ('blog.php');
+                include('blog.php');
                 break;
             case "login":
                 header('Location: login.php');
                 break;
             case "profile":
-                    include('profile.php');
-                    break;
+                include('profile.php');
+                break;
             default:
                 include('home-mega-shop.php');
                 break;
-
         }
     } else {
         include('home-mega-shop.php');

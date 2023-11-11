@@ -261,7 +261,7 @@
                                 <div class="form-group">
                                     <label class="switcher">
                                         <div class="text-left mt-3">
-                                            <button type="button" class="btn btn-info saveChanges">Admin Sign In</button>&nbsp;
+                                          <a class="btn btn-info saveChanges"  href="loginAdmin.php">Admin Sign In</a>
                                         </div>
                                     </label>
                                 </div>

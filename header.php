@@ -154,11 +154,12 @@
                         </div>
 
                         <?php
-                            // $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
-                            $user_profile ="<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
-                            if(isset($_SESSION['username']) && $_SESSION['password']){
-                                $user_profile = "";
-                            }
+                        $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
+                        // $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
+
+                        if (isset($_SESSION['username']) && $_SESSION['password']) {
+                            $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
+                        }
 
                         ?>
                         <div class="col-auto d-none d-xl-block">
