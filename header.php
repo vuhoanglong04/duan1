@@ -72,45 +72,46 @@
     <div class="popup-search-box d-none d-lg-block"><button class="searchClose"><i class="fal fa-times"></i></button>
         <form action="#"><input type="text" placeholder="What are you looking for?"> <button type="submit"><i class="fal fa-search"></i></button></form>
     </div>
+
+    <?php
+    $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
+    $user_profile_mobile = "<a href='index.php?act=login'  class='th-btn mobile_a style4'>Login</a>";
+    if (isset($_COOKIE['username']) && $_COOKIE['password']) {
+        $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
+        $user_profile_mobile = "<a href='index.php?act=profile' class='th-btn mobile_a style4 mt-2'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
+    }
+
+    ?>
     <div class="th-menu-wrapper">
         <div class="th-menu-area text-center"><button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo"><a href="home-organic-farm.php"><img src="assets/img/logo.svg" alt="Frutin"></a>
             </div>
             <div class="th-mobile-menu">
                 <ul>
-                    <li><a href="index.php?act=''">Home</a></li>
-                    <li class="menu-item-has-children"><a href="index.php?act=shop">Shop</a>
-                        <ul class="sub-menu">
-                            <li><a href="index.php?act=shop-details.php">Shop Details</a></li>
-                            <li><a href="index.php?act=cart">Cart Page</a></li>
-                            <li><a href="index.php?act=checkout">Checkout</a></li>
-                            <li><a href="index.php?act=wishlist">Wishlist</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item-has-children"><a href="#">Pages</a>
-                        <ul class="sub-menu">
-                            <li><a href="index.php?act=faq">Faq Page</a></li>
-                            <li><a href="index.php?act=error">Error Page</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="index.php?act=">Home</a></li>
+                    <li><a href="index.php?act=shop">Shop</a></li>
+                    <li><a href="index.php?act=cart">Cart</a></li>
+                    <li><a href="index.php?act=wishlist">Wishlist</a></li>
+                    <li><a href="index.php?act=checkout">Checkout</a></li>
                     <li><a href="index.php?act=blog">Blog</a></li>
+                    <?= $user_profile_mobile ?>
 
                 </ul>
+
             </div>
         </div>
     </div>
     <header class="th-header header-layout1">
         <div class="header-top">
             <div class="container">
-                <div class="row justify-content-center justify-content-lg-between align-items-center gy-2">
+                <div class="row justify-content-center text-right justify-content-lg-between align-items-center gy-2">
                     <div class="col-auto d-none d-lg-block">
-                        <p class="header-notice">Orders of $50 or more qualify for free shipping!</p>
+                        <p></p>
                     </div>
                     <div class="col-auto">
                         <div class="header-links">
                             <ul>
-                                <li class="d-none d-sm-inline-block"><i class="fal fa-location-dot"></i><a href="https://www.google.com/maps">8502 Preston Rd. Inglewood, Maine 98380</a>
+                                <li class="d-none d-sm-inline-block"><i class="fal fa-location-dot"></i><a href="https://www.google.com/maps">136 Cau Giay, Ha Noi,Viet Name</a>
                                 </li>
                                 <li>
                                     <div class="social-links"><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a> <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></div>
@@ -132,21 +133,10 @@
                             <nav class="main-menu d-none d-lg-inline-block">
                                 <ul>
                                     <li><a href="index.php?act=">Home</a></li>
-                                    <li class="menu-item-has-children"><a href="index.php?act=shop">Shop</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.php?act=shop-details">Shop Details</a></li>
-                                            <li><a href="index.php?act=cart">Cart Page</a></li>
-                                            <li><a href="index.php?act=checkout">Checkout</a></li>
-                                            <li><a href="index.php?act=wishlist">Wishlist</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="menu-item-has-children"><a href="#">Pages</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.php?act=faq">Faq Page</a></li>
-                                            <li><a href="index.php?act=error">Error Page</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="index.php?act=shop">Shop</a></li>
+                                    <li><a href="index.php?act=cart">Cart</a></li>
+                                    <li><a href="index.php?act=wishlist">Wishlist</a></li>
+                                    <li><a href="index.php?act=checkout">Checkout</a></li>
                                     <li><a href="index.php?act=blog">Blog</a></li>
 
                                 </ul>
@@ -157,7 +147,7 @@
                         $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
                         // $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
 
-                        if (isset($_SESSION['username']) && $_SESSION['password']) {
+                        if (isset($_COOKIE['username']) && $_COOKIE['password']) {
                             $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
                         }
 

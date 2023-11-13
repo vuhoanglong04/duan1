@@ -9315,6 +9315,9 @@ span.select2-selection.select2-selection--single:focus {
 .th-checkout-wrapper form.woocommerce-form {
   margin-bottom: 30px;
 }
+.mobile_a::before{
+  content: "";
+}
 @media (max-width: 767px) {
   tfoot.checkout-ordertable th {
     display: none;

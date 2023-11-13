@@ -43,6 +43,9 @@ ob_start();
 
     <?php
     include('header.php');
+    include('model/pdo.php');
+    include('model/user.php');
+
     if (isset($_GET['act'])) {
         $act  = $_GET['act'];
         switch ($act) {

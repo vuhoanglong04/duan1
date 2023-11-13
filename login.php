@@ -1,3 +1,6 @@
+<?php
+ob_start();
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -27,6 +30,7 @@
 </head>
 
 <body>
+
   <!-- Start Preloader -->
   <div id="preload-block">
     <div class="square-block"></div>
@@ -65,7 +69,11 @@
                   <i class="fa fa-google-plus"></i>
                 </a>
               </div>
-            </div><!-- ./social-buttons -->
+            </div>
+
+
+
+            <!-- ./social-buttons -->
             <div class="row loginOr">
               <div class="col-xs-12 col-sm-12">
                 <hr class="hrOr">
@@ -74,16 +82,16 @@
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12">
-                <form name="loginForm" class="loginForm" action="#" method="POST">
-                  <input type="email" class="form-control email" name="username" placeholder="Email address">
+                <form name="loginForm" class="loginForm" action="login.php" method="POST">
+                  <input type="text" class="form-control" name="username_signin" placeholder="Username">
                   <div class="pwdMask">
-                    <input type="password" class="form-control password" name="password" placeholder="Password">
+                    <input type="password" class="form-control password" name="password_signin" placeholder="Password">
                     <span class="fa fa-eye-slash pwd-toggle"></span>
                   </div>
                   <div class="row remember-row">
                     <div class="col-xs-6 col-sm-6">
                       <label class="checkbox text-left">
-                        <input type="checkbox" value="remember-me"><span class="label-text">Remember me</span>
+                        <input type="checkbox" value="remember-me" name="remember"><span class="label-text">Remember me</span>
                       </label>
                     </div>
                     <div class="col-xs-6 col-sm-6">
@@ -93,12 +101,16 @@
                     </div>
                   </div> <!-- ./remember-row -->
                   <div class="form-group">
-                    <button class="btn btn-lg btn-block login" style="background-color:#017d03;color:white;font-weight:600" type="submit">Login with email</button>
+                    <button class="btn btn-lg btn-block login" style="background-color:#017d03;color:white;font-weight:600" name="login" type="submit">Login</button>
                   </div>
                 </form>
               </div>
             </div>
-          </div> <!-- ./panel-login -->
+          </div>
+          <!-- ./panel-login -->
+
+
+
           <!-- panel-signup start -->
           <div class="authfy-panel panel-signup text-center">
             <div class="row">
@@ -106,30 +118,39 @@
                 <div class="authfy-heading">
                   <h3 class="auth-title">Sign up for free!</h3>
                 </div>
-                <form name="signupForm" class="signupForm" action="#" method="POST">
+                <form name="signupForm" class="signupForm" method="POST">
                   <div class="form-group">
-                    <input type="email" class="form-control" name="username" placeholder="Email address">
+                    <input type="email" class="form-control" name="email_signup" placeholder="Email address">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" name="fullname" placeholder="Full name">
+                    <input type="text" class="form-control" name="username_signup" placeholder="Username">
                   </div>
                   <div class="form-group">
                     <div class="pwdMask">
-                      <input type="password" class="form-control" name="password" placeholder="Password">
+                      <input type="password" class="form-control" name="password_signup" placeholder="Password">
                       <span class="fa fa-eye-slash pwd-toggle"></span>
                     </div>
                   </div>
+
                   <div class="form-group">
                     <p class="term-policy text-muted small">I agree to the <a href="#">privacy policy</a> and <a href="#">terms of service</a>.</p>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block" style="background-color:#017d03;color:white;font-weight:600"  type="submit">Sign up with email</button>
+                    <button class="btn btn-lg btn-primary btn-block" name="signup" style="background-color:#017d03;color:white;font-weight:600" id="signup" type="submit">Sign up with
+                      email</button>
                   </div>
                 </form>
                 <a class="lnk-toggler" data-panel=".panel-login" href="#">Already have an account?</a>
               </div>
             </div>
-          </div> <!-- ./panel-signup -->
+          </div>
+          <!-- ./panel-signup -->
+
+
+
+
+
+
           <!-- panel-forget start -->
           <div class="authfy-panel panel-forgot">
             <div class="row">
@@ -138,12 +159,12 @@
                   <h3 class="auth-title">Recover your password</h3>
                   <p>Fill in your e-mail address below and we will send you an email with further instructions.</p>
                 </div>
-                <form name="forgetForm" class="forgetForm" action="#" method="POST">
+                <form name="forgetForm" class="forgetForm" action="login.php" method="POST">
                   <div class="form-group">
-                    <input type="email" class="form-control" name="username" placeholder="Email address">
+                    <input type="email" class="form-control" name="email_forgot" placeholder="Email address">
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:#017d03;color:white;font-weight:600">Recover your password</button>
+                    <button class="btn btn-lg btn-primary btn-block" name="forgot" type="submit" style="background-color:#017d03;color:white;font-weight:600">Recover your password</button>
                   </div>
                   <div class="form-group">
                     <a class="lnk-toggler" data-panel=".panel-login" href="#">Already have an account?</a>
@@ -160,8 +181,42 @@
     </div> <!-- ./row -->
   </div> <!-- ./container -->
 
-  <!-- Javascript Files -->
+  <!-- PHP -->
+  <?php
+  include('model/pdo.php');
+  include('model/user.php');
+  //Sign Up
+  if (isset($_POST['signup'])) {
+    $email = trim($_POST['email_signup']);
+    $username = trim($_POST['username_signup']);
+    $password = trim($_POST['password_signup']);
+    if (count(user_exis($username)) == 0) {
+      sign_up($email, $username, $password);
+    } else {
+      echo '<script>alert("Username is already used")</script>';
+    }
+  }
+  // Sign In
+  if (isset($_POST['login'])) {
+    $username = $_POST['username_signin'];
+    $password = $_POST['password_signin'];
+    $result = sign_in($username, $password);
+    if (count($result) > 0) {
+      if (isset($_POST['remember'])) {
+        setcookie('username', $username, time() + 84600);
+        setcookie('password', $password, time() + 84600);
+      } else {
+        setcookie('username', $username, time() + 10);
+        setcookie('password', $password, time() + 10);
+      }
+      header("Location: index.php?act=");
+    } else {
+      echo "<script>alert('Username or password is not correct')</script>";
+    }
+  }
+  ?>
 
+  <!-- Javascript Files -->
   <!-- initialize jQuery Library -->
   <script src="assets/js/jquery-2.2.4.min.js"></script>
 

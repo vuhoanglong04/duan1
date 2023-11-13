@@ -15,7 +15,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="yoursite.com" />
 
-    <title>Authfy : Login-01</title>
+    <title>Admin Login</title>
 
     <link rel="shortcut icon" type="image/icon" href="assets/img/favicon-16x16.html" />
     <link rel="stylesheet" href="assets/css/login1-style.css">
@@ -48,7 +48,7 @@
                             <div class="col-xs-12 col-sm-12">
                                 <h2>Welcome Admins</h2>
                                 <form name="loginForm" class="loginForm" action="#" method="POST">
-                                    <input type="email" class="form-control email" name="username" placeholder="Email address">
+                                    <input type="text" class="form-control email" name="username" placeholder="Username">
                                     <div class="pwdMask">
                                         <input type="password" class="form-control password" name="password" placeholder="Password">
                                         <span class="fa fa-eye-slash pwd-toggle"></span>
@@ -56,7 +56,7 @@
                          
                                     <div class="form-group">
                                         <br>
-                                        <button class="btn btn-lg btn-block login" style="background-color:#017d03;color:white;font-weight:600" type="submit">Login</button>
+                                        <button class="btn btn-lg btn-block login" style="background-color:#017d03;color:white;font-weight:600" name="admin_login" type="submit">Login</button>
                                     </div>
                                 </form>
                             </div>
@@ -66,7 +66,21 @@
                 </div> <!-- ./authfy-login -->
             </div>
         </div> <!-- ./row -->
-    </div> <!-- ./container -->
+    </div> 
+    <?php
+        include 'model/pdo.php';
+        include 'model/user.php';
+        if(isset($_POST['admin_login'])){
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $result =  sign_in_admin($username, $password);
+            if(count($result)>0){
+                header('Location: admin/admin.php?act=');
+            }
+            else echo '<script>alert("You are not ADMIN")</script>';
+        }
+
+    ?>
     <script src="assets/js/jquery-2.2.4.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
 
