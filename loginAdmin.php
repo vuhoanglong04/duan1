@@ -75,6 +75,8 @@
             $password = $_POST['password'];
             $result =  sign_in_admin($username, $password);
             if(count($result)>0){
+                setcookie('username_admin',$username, time()+3600);
+                setcookie('password_admin',$password, time()+3600);
                 header('Location: admin/admin.php?act=');
             }
             else echo '<script>alert("You are not ADMIN")</script>';

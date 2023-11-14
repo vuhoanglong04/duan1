@@ -19,6 +19,7 @@
         <?php
         include('../../assets/css/sb-admin-2.min.css');
         ?>
+
     </style>
     <div class="container-fluid">
 
@@ -41,47 +42,35 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                <h6 class="m-0 font-weight-bold text-primary">All Category</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>#ID</th>
+                                <th>Name Sub Category</th>
+                                <th>Image</th>
+                                <th>ID Master Category</th>
+                                <th>Name Master Category</th>
+                                <th>Delete</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
+                            <?php foreach ($result as $key => $value) : ?>
+                                <tr>
+                                    <td><?= $value['id_sub_category']; ?></td>
+                                    <td ><?= $value['name_sub_category']; ?></td>
+                                    <td><img style="height: 5rem; width:5rem;" src="../assets/img/category/<?=$value['image_sub_category'];?>" alt="Image"></td>
+                                    <th><?= $value['id']; ?></th>
+                                    <th><?= $value['name']; ?></th>
+                                    <td><a href="category/deleteSubCategory.php?id=<?=$value['id_sub_category'];?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></td>
+                                    <td><a href="../admin/admin.php?act=editSubCategory&&id=<?=$value['id_sub_category'];?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></td>
+                                </tr>
+                            <?php endforeach; ?>
 
                         </tbody>
                     </table>

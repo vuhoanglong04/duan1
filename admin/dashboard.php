@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>SB Admin Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <script src="https://kit.fontawesome.com/dc265cc9f9.js" crossorigin="anonymous"></script>

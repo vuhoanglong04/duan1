@@ -95,13 +95,12 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mb-2 text-primary">Add Category</h6>
+                                    <h6 class="mb-2 text-primary">Edit Sub Category</h6>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-
                                     <div class="form-group">
-                                        <label for="fullName">Name Category</label>
-                                        <input type="text" class="form-control" id="fullName" name="name_category" placeholder="...">
+                                        <label for="fullName">Name Sub Category</label>
+                                        <input type="text" class="form-control" id="fullName" name="name_sub_category" value="<?= $result[0]['name_sub_category']; ?>" placeholder="...">
                                     </div>
                                 </div>
 
@@ -114,10 +113,9 @@
                                     </div>
                                     <label for="select" class="form-label">Option Category</label><br>
                                     <select class="form-select form-select-sm btn btn-dark mb-4 text-left" name="select" id="select" aria-label=".form-select-sm example">
-                                        <option value="new">Create New Category</option>
-                                        <?php foreach($listCategory as $key=>$value) :?>
-                                        <option value="<?=$value['id']; ?>"><?=$value['name'];?></option>
-                                        <?php endforeach ;?>    
+                                        <?php foreach ($listCategory as $key => $value) : ?>
+                                            <option value="<?= $value['id']; ?>"<?php if($value['id']==$result[0]['id']) echo 'selected';   ?> ><?= $value['name']; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
@@ -125,7 +123,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-right">
                                         <button type="submit" id="submit" name="cancel" class="btn btn-secondary">Cancel</button>
-                                        <button type="submit" id="submit" name="add_category" class="btn btn-primary">Update</button>
+                                        <button type="submit" id="submit" name="edit_sub_category" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
                             </div>

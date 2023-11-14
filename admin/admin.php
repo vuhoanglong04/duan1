@@ -1,3 +1,11 @@
+<?php
+ob_start();
+if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
+} else {
+    header('location: ../loginAdmin.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,8 +66,10 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="admin.php?act=category">List</a>
-                        <a class="collapse-item" href="admin.php?act=addCategory">Add category</a>
+                        <a class="collapse-item" href="admin.php?act=listCategory">List Category</a>
+                        <a class="collapse-item" href="admin.php?act=subCategory">Sub Category</a>
+                        <a class="collapse-item" href="admin.php?act=addCategory">Add Category</a>
+
                     </div>
                 </div>
             </li>
@@ -280,15 +290,15 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="../index.php?act=">
-                                        Back To Store
-                        
+                                    Back To Store
+
                                     <i class="fa-solid fa-hand-back-fist fa-sm fa-fw mr-2 text-gray-400"></i>
-                                   
+
                                 </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                Logout  
+                                    Logout
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 
+
                                 </a>
                             </div>
                         </li>
@@ -297,6 +307,9 @@
 
                 </nav>
                 <?php
+                include('../model/pdo.php');
+                include('../model/user.php');
+                include('../model/category.php');
                 if (isset($_GET["act"])) {
                     $act = $_GET["act"];
                     switch ($act) {
@@ -304,7 +317,96 @@
                             include('category/listCategoy.php');
                             break;
                         case "addCategory":
+
+                            $listCategory = show_category();
+                            print_r($listCategory);
+                            //Cancel
+                            if (isset($_POST['cancel'])) {
+                                header('Location: admin.php?act= ');
+                            }
+                            //Add
+                            if (isset($_POST['add_category'])) {
+                                $select = $_POST['select'];
+                                $name = $_POST['name_category'];
+                                $img = $_FILES['image']['name'];
+                                if ($select == 'new') {
+                                    if ($_FILES['image']['size'] > 0) {
+                                        $tmp = $_FILES['image']['tmp_name'];
+                                        $move = "../assets/img/category/" . $img;
+                                        move_uploaded_file($tmp, $move);
+                                    } else {
+                                        $img = 'default.png';
+                                    }
+                                    add_new_category($name, $img);
+                                    echo '<script>alert("SUCESS")</script>';
+                                } else {
+                                    add_sub_category($name, $img, $select);
+                                    echo '<script>alert("SUCESS")</script>';
+                                    
+                                }
+                                header('location: admin.php?act=listCategory');
+                            }
                             include('category/addCategory.php');
+                            break;
+                        case "listCategory":
+                            $result = show_category();
+                            include('category/listCategory.php');
+                            break;
+                        case 'subCategory':
+                            $result = show_sub_category();
+                            print_r($result);
+                            include('category/listSubCategory.php');
+                            break;
+                        case 'editCategory':
+                            $id = $_GET['id'];
+                            $result = get_category($id);
+
+                            //Cancel
+                            if (isset($_POST['cancel'])) {
+                                header('Location: ../admin/admin.php?act=listCategory');
+                            }
+                            //Add
+                            if (isset($_POST['add_category'])) {
+                                $name = $_POST['name_category'];
+                                $img = $_FILES['image']['name'];
+                                if ($_FILES['image']['size'] > 0) {
+                                    $tmp = $_FILES['image']['tmp_name'];
+                                    $move = "../assets/img/category/" . $img;
+                                    move_uploaded_file($tmp, $move);
+                                } else {
+                                    $img = $result[0]['image'];
+                                }
+                                edit_category($id, $name, $img);
+                                echo '<script>alert("SUCESS")</script>';
+                                header('location: admin.php?act=listCategory');
+
+                            }
+                            include('category/editCategory.php');
+                            break;
+                        case 'editSubCategory':
+                            $id = $_GET['id'];
+                            $result = get_sub_category($id);
+                            $listCategory = show_category();
+                            if (isset($_POST['cancel'])) {
+                                header('Location: ../admin/admin.php?act=listCategory');
+                            }
+                            //Add
+                            if (isset($_POST['edit_sub_category'])) {
+                                $name = $_POST['name_sub_category'];
+                                $img = $_FILES['image']['name'];
+                                $select = $_POST['select'];
+                                if ($_FILES['image']['size'] > 0) {
+                                    $tmp = $_FILES['image']['tmp_name'];
+                                    $move = "../assets/img/category/" . $img;
+                                    move_uploaded_file($tmp, $move);
+                                } else {
+                                    $img = $result[0]['image_sub_category'];
+                                }
+                                edit_sub_category($id, $name, $img, $select);
+                                echo '<script>alert("SUCESS")</script>';
+                                header('Location: admin.php?act=subCategory');
+                            }
+                            include('category/editSubCategory.php');
                             break;
                         default:
                             include('dashboard.php');

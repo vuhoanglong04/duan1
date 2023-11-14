@@ -499,6 +499,11 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.table-bordered tr td{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media (min-width: 576px) {
   .container,
   .container-sm {
