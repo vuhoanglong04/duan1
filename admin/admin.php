@@ -78,12 +78,12 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-bowl-food"></i>
-                    <span>Foods</span>
+                    <span>Products</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">List</a>
-                        <a class="collapse-item" href="">Add food</a>
+                        <a class="collapse-item" href="admin.php?act=listProduct">All Products</a>
+                        <a class="collapse-item" href="admin.php?act=addProduct">Add Products</a>
                     </div>
                 </div>
             </li>
@@ -310,6 +310,8 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 include('../model/pdo.php');
                 include('../model/user.php');
                 include('../model/category.php');
+                include('../model/product.php');
+
                 if (isset($_GET["act"])) {
                     $act = $_GET["act"];
                     switch ($act) {
@@ -319,7 +321,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                         case "addCategory":
 
                             $listCategory = show_category();
-                            print_r($listCategory);
+
                             //Cancel
                             if (isset($_POST['cancel'])) {
                                 header('Location: admin.php?act= ');
@@ -342,7 +344,6 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                                 } else {
                                     add_sub_category($name, $img, $select);
                                     echo '<script>alert("SUCESS")</script>';
-                                    
                                 }
                                 header('location: admin.php?act=listCategory');
                             }
@@ -379,7 +380,6 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                                 edit_category($id, $name, $img);
                                 echo '<script>alert("SUCESS")</script>';
                                 header('location: admin.php?act=listCategory');
-
                             }
                             include('category/editCategory.php');
                             break;
@@ -407,6 +407,36 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                                 header('Location: admin.php?act=subCategory');
                             }
                             include('category/editSubCategory.php');
+                            break;
+                        case "listProduct":
+                            $list_product = show_product();
+                            print_r($list_product);
+                            include('products/listProduct.php');
+                            break;
+                        case "addProduct":
+                            $listCategory = show_category();
+                            if (isset($_POST['cancel'])) {
+                                header('Location: ../admin/admin.php?act=listCategory');
+                            }
+                            if (isset($_POST['add_product'])) {
+                                $name = $_POST['name_product'];
+                                $price  = $_POST['price'];
+                                $img = $_FILES['image']['name'];
+                                $select = $_POST['select'];
+                                $description = $_POST['description'];
+                                $sub_category = $_POST['select_sub'];
+
+                                if ($_FILES['image']['size'] > 0) {
+                                    $tmp = $_FILES['image']['tmp_name'];
+                                    $move = "../assets/img/category/" . $img;
+                                    move_uploaded_file($tmp, $move);
+                                } else {
+                                    $img = 'default.png';
+                                }
+                                create_product($name, $price, $img, $select, $sub_category, $description);
+                                echo "<script>alert('Success')</script>";
+                            }
+                            include('products/addProduct.php');
                             break;
                         default:
                             include('dashboard.php');

@@ -74,7 +74,7 @@
                             <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
                         </div>
                         <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Fruits</a>
-                            <h3 class="product-title"><a href="shop-details.php">Bosco Apple Fruit</a></h3><span class="price">$177.85</span>
+                            <h3 class="product-title"><a href="index.php?act=shop_details">Bosco Apple Fruit</a></h3><span class="price">$177.85</span>
                             <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
                                 <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
                             </div>
@@ -235,81 +235,6 @@
             </div>
         </div>
     </section>
-    <div class="">
-        <div class="container z-index-common">
-            <div class="newsletter-wrap">
-                <div class="newsletter-content">
-                    <h4 class="newsletter-title">Sign Up to Get Updates & News About Us.</h4>
-                </div>
-                <form class="newsletter-form">
-                    <div class="form-group"><input class="form-control" type="email" placeholder="Email Address" required=""></div><button type="submit" class="th-btn style6">Subscribe</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <footer class="footer-wrapper footer-layout1" data-bg-src="assets/img/bg/footer_bg_1.jpg">
-        <div class="widget-area">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-md-6 col-xl-auto">
-                        <div class="widget footer-widget">
-                            <div class="th-widget-about">
-                                <div class="about-logo"><a href="home-organic-farm.php"><img src="assets/img/logo-footer.svg" alt="Frutin"></a></div>
-                                <p class="about-text">We provide specialized winterization services to safeguard your pool during the off-season, and when spring arrives, we handle the thorough opening process.</p>
-                                <div class="th-social"><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a> <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.whatsapp.com/"><i class="fab fa-whatsapp"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-auto">
-                        <div class="widget widget_nav_menu footer-widget">
-                            <h3 class="widget_title"><img src="assets/img/theme-img/title_icon.svg" alt="Icon">Quick Links</h3>
-                            <div class="menu-all-pages-container">
-                                <ul class="menu">
-                                    <li><a href="about.php">About Us</a></li>
-                                    <li><a href="project.php">Portfolio</a></li>
-                                    <li><a href="faq.php">Help & FAQs</a></li>
-                                    <li><a href="blog.php">Blog</a></li>
-                                    <li><a href="contact.php">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-auto">
-                        <div class="widget footer-widget">
-                            <h3 class="widget_title"><img src="assets/img/theme-img/title_icon.svg" alt="Icon">Contact Us</h3>
-                            <div class="th-widget-contact">
-                                <div class="info-box">
-                                    <div class="info-box_icon"><i class="fas fa-location-dot"></i></div>
-                                    <p class="info-box_text">8502 Preston Rd. Inglewood, Maine 98380</p>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-box_icon"><i class="fas fa-phone"></i></div>
-                                    <p class="info-box_text"><a href="tel:+16326543564" class="info-box_link">+(163)-2654-3564</a> <a href="tel:+16326545432" class="info-box_link">+(163)-2654-5432</a></p>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-box_icon"><i class="fas fa-envelope"></i></div>
-                                    <p class="info-box_text"><a href="mailto:help24/7@frutin.com" class="info-box_link">help24/7@frutin.com</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="copyright-wrap">
-            <div class="container">
-                <div class="row gy-2 align-items-center">
-                    <div class="col-md-6">
-                        <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2023 <a href="home-organic-farm.php">Frutin</a>. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="payment-img"><img src="assets/img/normal/payment_methods.png" alt="Image"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 </body>
 <!-- Mirrored from themeholy.com/php/frutin/demo/shop.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:46:28 GMT -->

@@ -174,12 +174,27 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
-                                    <input type="text" class="form-control mb-1" value="nmaxwell">
+                                    <input type="text" class="form-control mb-1" value="Long">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="Nelle Maxwell">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" value="Vu Linh Hoang Long">
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="text" class="form-control" value="longvlhph38689@fpt.edu.vn">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" value="Hai Duong">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Telephone</label>
+                                    <input type="text" class="form-control" value="+84344847295">
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-change-password">

@@ -71,7 +71,9 @@ ob_start();
             case 'wishlist':
                 include('wishlist.php');
                 break;
-
+            case 'shop_details':
+                include ('shop-details.php');
+                break;
             case 'faq':
                 include('faq.php');
                 break;

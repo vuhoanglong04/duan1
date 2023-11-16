@@ -34,6 +34,11 @@ function get_sub_category($id)
     $sql = "SELECT * FROM `sub_category` INNER JOIN `danhmuc` on danhmuc.id = sub_category.id_category WHERE `id_sub_category` = '$id'";
     return pdo_query($sql);
 }
+function get_sub_category_by_id_category($id)
+{
+    $sql = "SELECT * FROM `sub_category` WHERE `id_category` = '$id'";
+    return pdo_query($sql);
+}
 function edit_category($id, $name, $image)
 {
     $sql = "UPDATE `danhmuc` SET `name`='$name',`image`='$image' WHERE `id`='$id'";
