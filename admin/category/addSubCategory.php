@@ -95,12 +95,21 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mb-2 text-primary">Edit Category</h6>
+                                    <h6 class="mb-2 text-primary">Add Sub Category</h6>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="fullName">Name Category</label>
-                                        <input type="text" class="form-control" id="fullName" name="name_category" value="<?= $result[0]['name_category']; ?>" placeholder="...">
+                                        <label for="select">Name Parent Category</label><br>
+                                        <select name="select" class="btn btn-primary mb-3" style="font-weight:700" id="select">
+                                            <option style="font-weight:700" class="text-left" hidden value="">Select Parent Category</option>
+                                            <?php foreach ($list_category as $key => $value) : ?>
+                                                <option style="font-weight:700" class="text-left" value="<?= $value['category_id'] ?>"><?= $value['name_category'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fullName">Name Sub Category</label>
+                                        <input type="text" class="form-control" id="fullName" name="name_sub_category" placeholder="...">
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +117,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-right">
                                         <button type="submit" id="submit" name="cancel" class="btn btn-secondary">Cancel</button>
-                                        <button type="submit" id="submit" name="edit_category" class="btn btn-primary">Update</button>
+                                        <button type="submit" id="submit" name="add_sub_category" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +127,12 @@
             </div>
         </div>
     </div>
+    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
 
+    </script>
 </body>
 
 </html>

@@ -104,22 +104,6 @@
                                         <input type="text" class="form-control" id="fullName" name="name_category" placeholder="...">
                                     </div>
                                 </div>
-
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Image</label>
-                                            <input class="form-control" name="image" type="file" id="formFile">
-                                        </div>
-                                    </div>
-                                    <label for="select" class="form-label">Option Category</label><br>
-                                    <select class="form-select form-select-sm btn btn-dark mb-4 text-left" name="select" id="select" aria-label=".form-select-sm example">
-                                        <option value="new">Create New Category</option>
-                                        <?php foreach($listCategory as $key=>$value) :?>
-                                        <option value="<?=$value['id']; ?>"><?=$value['name'];?></option>
-                                        <?php endforeach ;?>    
-                                    </select>
-                                </div>
                             </div>
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

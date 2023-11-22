@@ -19,13 +19,11 @@
         <?php
         include('../../assets/css/sb-admin-2.min.css');
         ?>
-
     </style>
     <div class="container-fluid">
 
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Category</h1>
-        <p class="mb-4">All Category</p>
         <!-- Search -->
         <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
@@ -38,7 +36,7 @@
             </div>
         </form>
         <br>
-
+        <a href="admin.php?act=addCategory" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more category</a>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -51,23 +49,20 @@
                             <tr>
                                 <th>#ID</th>
                                 <th>Name Category</th>
-                                <th>Image</th>
                                 <th>Delete</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php foreach ($result as $key => $value) : ?>
+                            <?php foreach ($list_category as $key => $value) : ?>
                                 <tr>
-                                    <td><?= $value['id']; ?></td>
-                                    <td><?= $value['name']; ?></td>
-                                    <td><img style="height: 5rem; width:5rem;" src="../assets/img/category/<?=$value['image'];?>" alt="Image"></td>
-                                    <td><a href="category/deleteCategory.php?id=<?=$value['id'];?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></td>
-                                    <td><a href="../admin/admin.php?act=editCategory&&id=<?=$value['id'];?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></td>
+                                    <th><?= $value['category_id'] ?></th>
+                                    <th><?= $value['name_category'] ?></th>
+                                    <th><a href="category/deleteCategory.php?id=<?= $value['category_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
+                                    <th><a href="../admin/admin.php?act=editCategory&&id=<?= $value['category_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
                                 </tr>
                             <?php endforeach; ?>
-
                         </tbody>
                     </table>
                 </div>

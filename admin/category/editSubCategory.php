@@ -105,16 +105,10 @@
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Image</label>
-                                            <input class="form-control" name="image" type="file" id="formFile">
-                                        </div>
-                                    </div>
                                     <label for="select" class="form-label">Option Category</label><br>
                                     <select class="form-select form-select-sm btn btn-dark mb-4 text-left" name="select" id="select" aria-label=".form-select-sm example">
-                                        <?php foreach ($listCategory as $key => $value) : ?>
-                                            <option value="<?= $value['id']; ?>"<?php if($value['id']==$result[0]['id']) echo 'selected';   ?> ><?= $value['name']; ?></option>
+                                        <?php foreach ($list_category as $key => $value) : ?>
+                                            <option value="<?= $value['category_id']; ?>"<?php if($value['category_id']==$result[0]['parent_category_id']) echo 'selected';   ?> ><?= $value['name_category']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

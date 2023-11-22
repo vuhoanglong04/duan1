@@ -95,30 +95,73 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mb-2 text-primary">Edit Category</h6>
+                                    <h6 class="mb-2 text-primary">Add Image</h6>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+
                                     <div class="form-group">
                                         <label for="fullName">Name Category</label>
-                                        <input type="text" class="form-control" id="fullName" name="name_category" value="<?= $result[0]['name_category']; ?>" placeholder="...">
+                                        <input type="text" class="form-control" id="fullName" name="" value="<?= $name ?>" readonly placeholder="...">
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="fullName">Image Category</label>
+                                        <input type="file" class="form-control" id="fullName" name="image[]" multiple placeholder="...">
                                     </div>
                                 </div>
                             </div>
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-right">
+                                    <div class="text-left col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <button type="submit" id="submit" name="cancel" class="btn btn-secondary">Cancel</button>
-                                        <button type="submit" id="submit" name="edit_category" class="btn btn-primary">Update</button>
+                                        <button type="submit" id="submit" name="add_image" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>#ID Image</th>
+                                                <th>#ID Product</th>
+                                                <th>Image</th>
+                                                <th>Delete</th>
+                                                <th>Set Main Image</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($list_img_product as $key => $value) : ?>
+                                                <tr>
+                                                    <th><?= $value['id_image']; ?></th>
+                                                    <th><?= $value['product_id']; ?></th>
+                                                    <th><img width="150" height="150" style="object-fit: cover;" src="../assets/img/product/<?= $value['image_path']; ?>" alt="Image"></th>
+                                                    <th><a href="products/deleteImage.php?id_image=<?= $value['id_image']; ?>&&pro=<?= $value['product_id']; ?>" class="btn btn-primary"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
+                                                    <th><a <?php if ($value['main'] == 1) {
+                                                                echo 'style="display: none;"';
+                                                            }?> href="products/setMainImage.php?id_image=<?= $value['id_image']; ?>&&pro=<?= $value['product_id']; ?>" class="btn btn-primary"><i class="fa-solid fa-image mr-2"></i>Set Main Image</a></th>
+
+                                                </tr>
+                                            <?php endforeach; ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
 
+    </script>
 </body>
 
 </html>

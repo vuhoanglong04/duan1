@@ -91,9 +91,9 @@
     include('../../model/category.php');
     include('../../model/pdo.php');
 
-    $id_category = $_POST['id_category'];
-    $result = get_sub_category_by_id_category($id_category);
-
+    $category_id = $_POST['category_id'];
+    $result = get_sub_category_by_id_category($category_id);
+    
     ?>
 
     <div id="sub" method="post">

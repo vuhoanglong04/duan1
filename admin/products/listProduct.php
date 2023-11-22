@@ -23,8 +23,7 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Category</h1>
-        <p class="mb-4">All Category</p>
+        <h1 class="h3 mb-2 text-gray-800">Product</h1>
         <!-- Search -->
         <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
@@ -37,6 +36,7 @@
             </div>
         </form>
         <br>
+        <a href="admin.php?act=addProduct" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more product</a>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -49,35 +49,34 @@
                         <thead>
                             <tr>
                                 <th>#ID</th>
-                                <th>Name Category</th>
-                                <th>Image</th>
+                                <th>Name Product</th>
                                 <th>Price</th>
+                                <th>Image</th>
                                 <th>Description</th>
-                                <th>View</th>
-                                <th>Category</th>
-                                <th>Sub Category</th>
-                                <th>Rating</th>
+                                <th>Id Sub Category</th>
+                                <th>Image Product</th>
                                 <th>Delete</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             <?php foreach ($list_product as $key => $value) : ?>
                                 <tr>
-                                    <td><?= $value['id']; ?></td>
-                                    <td><?= $value['name']; ?></td>
-                                    <td><img style="height: 5rem; width:5rem;" src="../assets/img/category/<?= $value['image']; ?>" alt="Image"></td>
-                                    <td>$<?= $value['price']; ?></td>
-
-                                    <td><?= substr($value['mota'], 0 ,10); ?>...</td>
-                                    <td><?= $value['luotxem']; ?></td>
-                                    <td><?= $value['id_category']; ?></td>
-                                    <td><?= $value['id_sub_category']; ?></td>
-                                    <td><?= $value['rating']; ?></td>
-
-                                    <td><a href="category/deleteCategory.php?id=<?= $value['id']; ?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></td>
-                                    <td><a href="../admin/admin.php?act=editCategory&&id=<?= $value['id']; ?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></td>
+                                    <th><?= $value['product_id']; ?></th>
+                                    <th><?= $value['name']; ?></th>
+                                    <th>$<?= $value['price']; ?></th>
+                                    <th>
+                                        <?php
+                                        $main_image = get_main_image($value['product_id']);
+                                    
+                                        ?>
+                                        <img width="100" height="100" style="object-fit: cover;" src="../assets/img/product/<?= $main_image[0]['image_path']; ?>" alt="Image">
+                                    </th>
+                                    <th><?= $value['desciption']; ?></th>
+                                    <th><?= $value['sub_category_id']; ?></th>
+                                    <th><a href="admin.php?act=imageProduct&&pro=<?= $value['product_id']; ?>" class="btn btn-primary"><i class="fa-solid fa-images mr-3"></i>Image</a></th>
+                                    <th><a href="products/deleteProduct.php?id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
+                                    <th><a href="../admin/admin.php?act=editCategory&&id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
                                 </tr>
                             <?php endforeach; ?>
 

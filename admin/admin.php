@@ -67,9 +67,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="admin.php?act=listCategory">List Category</a>
-                        <a class="collapse-item" href="admin.php?act=subCategory">Sub Category</a>
-                        <a class="collapse-item" href="admin.php?act=addCategory">Add Category</a>
-
+                        <a class="collapse-item" href="admin.php?act=listSubCategory">List Sub Category</a>
                     </div>
                 </div>
             </li>
@@ -82,8 +80,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="admin.php?act=listProduct">All Products</a>
-                        <a class="collapse-item" href="admin.php?act=addProduct">Add Products</a>
+                        <a class="collapse-item" href="admin.php?act=listProduct">List Products</a>
                     </div>
                 </div>
             </li>
@@ -315,128 +312,118 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 if (isset($_GET["act"])) {
                     $act = $_GET["act"];
                     switch ($act) {
-                        case "category":
-                            include('category/listCategoy.php');
-                            break;
+
                         case "addCategory":
-
-                            $listCategory = show_category();
-
-                            //Cancel
-                            if (isset($_POST['cancel'])) {
-                                header('Location: admin.php?act= ');
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listCategory");
                             }
-                            //Add
                             if (isset($_POST['add_category'])) {
-                                $select = $_POST['select'];
-                                $name = $_POST['name_category'];
-                                $img = $_FILES['image']['name'];
-                                if ($select == 'new') {
-                                    if ($_FILES['image']['size'] > 0) {
-                                        $tmp = $_FILES['image']['tmp_name'];
-                                        $move = "../assets/img/category/" . $img;
-                                        move_uploaded_file($tmp, $move);
-                                    } else {
-                                        $img = 'default.png';
-                                    }
-                                    add_new_category($name, $img);
-                                    echo '<script>alert("SUCESS")</script>';
-                                } else {
-                                    add_sub_category($name, $img, $select);
-                                    echo '<script>alert("SUCESS")</script>';
-                                }
-                                header('location: admin.php?act=listCategory');
+                                $name_category = $_POST['name_category'];
+                                add_category($name_category);
+                                echo "<script>alert('Success!!!')</script>";
+                                header("Location: admin.php?act=listCategory");
                             }
                             include('category/addCategory.php');
                             break;
+                        case "addSubCategory":
+                            $list_category = load_all_category();
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listSubCategory");
+                            }
+                            if (isset($_POST['add_sub_category'])) {
+                                $name_sub_category = $_POST['name_sub_category'];
+                                $select = $_POST['select'];
+                                add_sub_category($name_sub_category, $select);
+                                echo "<script>alert('Success!!!')</script>";
+                                header("Location: admin.php?act=listSubCategory");
+                            }
+                            include('category/addSubCategory.php');
+                            break;
                         case "listCategory":
-                            $result = show_category();
+                            $list_category = load_all_category();
                             include('category/listCategory.php');
                             break;
-                        case 'subCategory':
-                            $result = show_sub_category();
-                            print_r($result);
+                        case 'listSubCategory':
+                            $list_sub_category = load_all_sub_category();
                             include('category/listSubCategory.php');
                             break;
                         case 'editCategory':
-                            $id = $_GET['id'];
-                            $result = get_category($id);
-
-                            //Cancel
-                            if (isset($_POST['cancel'])) {
-                                header('Location: ../admin/admin.php?act=listCategory');
+                            $id_category = $_GET['id'];
+                            $result = get_category($id_category);
+                            print_r($result);
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listCategory");
                             }
-                            //Add
-                            if (isset($_POST['add_category'])) {
-                                $name = $_POST['name_category'];
-                                $img = $_FILES['image']['name'];
-                                if ($_FILES['image']['size'] > 0) {
-                                    $tmp = $_FILES['image']['tmp_name'];
-                                    $move = "../assets/img/category/" . $img;
-                                    move_uploaded_file($tmp, $move);
-                                } else {
-                                    $img = $result[0]['image'];
-                                }
-                                edit_category($id, $name, $img);
-                                echo '<script>alert("SUCESS")</script>';
-                                header('location: admin.php?act=listCategory');
+                            if (isset($_POST["edit_category"])) {
+                                $name_category = $_POST['name_category'];
+                                edit_category($id_category, $name_category);
+                                echo "<script>alert('Success!!!')</script>";
+                                header("Location: admin.php?act=listCategory");
                             }
                             include('category/editCategory.php');
                             break;
                         case 'editSubCategory':
-                            $id = $_GET['id'];
-                            $result = get_sub_category($id);
-                            $listCategory = show_category();
-                            if (isset($_POST['cancel'])) {
-                                header('Location: ../admin/admin.php?act=listCategory');
+                            $id_sub_category = $_GET['id'];
+                            $list_category = load_all_category();
+                            $result = get_sub_category($id_sub_category);
+                            print_r($list_category);
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listSubCategory");
                             }
-                            //Add
-                            if (isset($_POST['edit_sub_category'])) {
-                                $name = $_POST['name_sub_category'];
-                                $img = $_FILES['image']['name'];
+                            if (isset($_POST["edit_sub_category"])) {
+                                $name_sub_category = $_POST['name_sub_category'];
                                 $select = $_POST['select'];
-                                if ($_FILES['image']['size'] > 0) {
-                                    $tmp = $_FILES['image']['tmp_name'];
-                                    $move = "../assets/img/category/" . $img;
-                                    move_uploaded_file($tmp, $move);
-                                } else {
-                                    $img = $result[0]['image_sub_category'];
-                                }
-                                edit_sub_category($id, $name, $img, $select);
-                                echo '<script>alert("SUCESS")</script>';
-                                header('Location: admin.php?act=subCategory');
+                                edit_sub_category($id_sub_category, $name_sub_category, $select);
+                                echo "<script>alert('Success!!!')</script>";
+                                header("Location: admin.php?act=listSubCategory");
                             }
                             include('category/editSubCategory.php');
                             break;
                         case "listProduct":
-                            $list_product = show_product();
-                            print_r($list_product);
+                            $list_product = load_all_product();
+
+
                             include('products/listProduct.php');
                             break;
                         case "addProduct":
-                            $listCategory = show_category();
-                            if (isset($_POST['cancel'])) {
-                                header('Location: ../admin/admin.php?act=listCategory');
+                            $list_category = load_all_category();
+                            print_r($list_category);
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listProduct");
                             }
                             if (isset($_POST['add_product'])) {
-                                $name = $_POST['name_product'];
-                                $price  = $_POST['price'];
-                                $img = $_FILES['image']['name'];
-                                $select = $_POST['select'];
+                                $name_product = $_POST['name_product'];
+                                $price = $_POST['price'];
                                 $description = $_POST['description'];
-                                $sub_category = $_POST['select_sub'];
-
-                                if ($_FILES['image']['size'] > 0) {
-                                    $tmp = $_FILES['image']['tmp_name'];
-                                    $move = "../assets/img/category/" . $img;
-                                    move_uploaded_file($tmp, $move);
-                                } else {
-                                    $img = 'default.png';
-                                }
-                                create_product($name, $price, $img, $select, $sub_category, $description);
-                                echo "<script>alert('Success')</script>";
+                                $id_sub_category = $_POST['select_sub'];
+                                add_product($name_product, $price, $description, $id_sub_category);
+                                header("Location: admin.php?act=listProduct");
                             }
                             include('products/addProduct.php');
+                            break;
+                        case "imageProduct":
+                            $id = $_GET['pro'];
+                            $name = get_product($id)[0]['name']; //Name product
+
+                            $list_img_product = get_list_img_product($id);
+                            // print_r($list_img_product);
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listProduct");
+                            }
+                            if (isset($_POST['add_image'])) {
+                                $image = $_FILES['image'];
+                                $lenght =  count($image['size']);
+                                for ($i = 0; $i < $lenght; $i++) {
+                                    $img_name = $image['name'][$i];
+                                    $tmp = $image['tmp_name'][$i];
+                                    $move  = '../assets/img/product/' . $img_name;
+                                    move_uploaded_file($tmp, $move);
+                                    $sql = "INSERT INTO `product_image`(`product_id`, `image_path`) VALUES ('$id','$img_name')";
+                                    pdo_execute($sql);
+                                }
+                                header("Refresh:0");
+                            }
+                            include('products/imageProduct.php');
                             break;
                         default:
                             include('dashboard.php');

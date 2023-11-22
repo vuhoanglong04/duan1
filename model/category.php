@@ -1,57 +1,58 @@
 <?php
-function add_new_category($name, $img)
+function  add_category($name_category)
 {
-    $sql = "INSERT INTO `danhmuc`( `name`, `image`) VALUES ('$name','$img')";
+    $sql = "INSERT INTO `category`( `name_category`) VALUES ('$name_category')";
     pdo_execute($sql);
 }
-function show_category()
+function  add_sub_category($name_sub_category, $parent_category_id)
 {
-    $sql = "SELECT * FROM `danhmuc`";
+    $sql = "INSERT INTO `sub_category`(`name_sub_category`, `parent_category_id`) VALUES ('$name_sub_category','$parent_category_id')";
+    pdo_execute($sql);
+}
+function  load_all_category()
+{
+    $sql = "SELECT * FROM `category`";
     return pdo_query($sql);
 }
-function show_sub_category()
+function  load_all_sub_category()
 {
-    $sql = "SELECT * FROM `sub_category` INNER JOIN `danhmuc` on danhmuc.id = sub_category.id_category";
+    $sql = "SELECT * FROM `sub_category`";
     return pdo_query($sql);
 }
-function delete_category($id)
+function delete_sub_category($sub_category_id)
 {
-    $sql = "DELETE FROM `danhmuc` WHERE `id`='$id'";
+    $sql = "DELETE FROM `sub_category` WHERE `id_sub_category` = '$sub_category_id'";
     pdo_execute($sql);
 }
-function delete_sub_category($id)
+
+function delete_category($category_id)
 {
-    $sql = "DELETE FROM `sub_category` WHERE `id_sub_category`='$id'";
+    $sql = "DELETE FROM `category` WHERE `category_id` = '$category_id'";
     pdo_execute($sql);
 }
-function get_category($id)
+function get_category($id_category)
 {
-    $sql = "SELECT * FROM `danhmuc` WHERE `id`='$id'";
+    $sql = "SELECT * FROM `category` WHERE `category_id` ='$id_category'";
     return pdo_query($sql);
 }
-function get_sub_category($id)
+function get_sub_category($id_sub_category)
 {
-    $sql = "SELECT * FROM `sub_category` INNER JOIN `danhmuc` on danhmuc.id = sub_category.id_category WHERE `id_sub_category` = '$id'";
+    $sql = "SELECT * FROM `sub_category` WHERE `id_sub_category` ='$id_sub_category'";
     return pdo_query($sql);
 }
-function get_sub_category_by_id_category($id)
+
+function edit_category($category_id, $new_name_category)
 {
-    $sql = "SELECT * FROM `sub_category` WHERE `id_category` = '$id'";
+    $sql = "UPDATE `category` SET `name_category`='$new_name_category' WHERE `category_id`='$category_id'";
+    pdo_execute($sql);
+}
+function edit_sub_category($id_sub_category, $new_name, $new_parent_id)
+{
+    $sql = "UPDATE `sub_category` SET`name_sub_category`='$new_name',`parent_category_id`='$new_parent_id' WHERE `id_sub_category`='$id_sub_category'";
+    pdo_execute($sql);
+}
+function get_sub_category_by_id_category($category_id)
+{
+    $sql = "SELECT `id_sub_category`, `name_sub_category`, `parent_category_id` FROM `sub_category` WHERE `parent_category_id`='$category_id'";
     return pdo_query($sql);
-}
-function edit_category($id, $name, $image)
-{
-    $sql = "UPDATE `danhmuc` SET `name`='$name',`image`='$image' WHERE `id`='$id'";
-    pdo_execute($sql);
-}
-function edit_sub_category($id_sub, $name, $image,$id_category)
-{
-    $sql = "UPDATE `sub_category` SET `name_sub_category`='$name',`image_sub_category`='$image', `id_category`='$id_category' WHERE `id_sub_category`='$id_sub'";
-    pdo_execute($sql);
-}
-function add_sub_category($name, $img, $id_category)
-{
-    $sql = "INSERT INTO `sub_category`( `name_sub_category`, `image_sub_category`, `id_category`)
-                 VALUES ('$name','$img','$id_category')";
-    pdo_execute($sql);
 }

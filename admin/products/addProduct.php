@@ -109,17 +109,12 @@
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Image</label>
-                                            <input class="form-control" name="image" type="file" id="formFile">
-                                        </div>
-                                    </div>
+                                  
                                     <label for="select" class="form-label">Choose Category</label><br>
                                     <select class="form-select form-select-sm btn btn-primary mb-4 text-left" name="select" id="select" aria-label=".form-select-sm example">
                                         <option value="" select hidden>Choose Category</option>
-                                        <?php foreach ($listCategory as $key => $value) : ?>
-                                            <option value="<?= $value['id']; ?>"><?= $value['name']; ?></option>
+                                        <?php foreach ($list_category as $key => $value) : ?>
+                                            <option value="<?= $value['category_id']; ?>"><?= $value['name_category']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     <br>
@@ -130,8 +125,8 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="fullName">Description</label>
-                                        <input type="text" class="form-control" id="fullName" name="description" placeholder="...">
+                                        <label for="fullName">Description</label><br>
+                                        <textarea name="description" id="" cols="40" rows="4"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -156,12 +151,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $("#select").change(function() {
-            var id_category = $(this).val();
+            var category_id = $(this).val();
             $.ajax({
                 url: "products/loadSubCategory.php",
                 type: "POST",
                 data: {
-                    id_category: id_category
+                    category_id: category_id
                 },
                 success: function(data) {
                     $("#sub").replaceWith(data);

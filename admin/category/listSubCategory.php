@@ -19,13 +19,11 @@
         <?php
         include('../../assets/css/sb-admin-2.min.css');
         ?>
-
     </style>
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Category</h1>
-        <p class="mb-4">All Category</p>
+        <h1 class="h3 mb-2 text-gray-800">Sub Category</h1>
         <!-- Search -->
         <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
@@ -38,6 +36,7 @@
             </div>
         </form>
         <br>
+        <a href="admin.php?act=addSubCategory" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>More Sub Category</a>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -51,24 +50,20 @@
                             <tr>
                                 <th>#ID</th>
                                 <th>Name Sub Category</th>
-                                <th>Image</th>
-                                <th>ID Master Category</th>
-                                <th>Name Master Category</th>
+                                <th>ID Parent Category</th>
                                 <th>Delete</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php foreach ($result as $key => $value) : ?>
+                            <?php foreach ($list_sub_category as $key => $value) : ?>
                                 <tr>
-                                    <td><?= $value['id_sub_category']; ?></td>
-                                    <td ><?= $value['name_sub_category']; ?></td>
-                                    <td><img style="height: 5rem; width:5rem;" src="../assets/img/category/<?=$value['image_sub_category'];?>" alt="Image"></td>
-                                    <th><?= $value['id']; ?></th>
-                                    <th><?= $value['name']; ?></th>
-                                    <td><a href="category/deleteSubCategory.php?id=<?=$value['id_sub_category'];?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></td>
-                                    <td><a href="../admin/admin.php?act=editSubCategory&&id=<?=$value['id_sub_category'];?>" class="btn btn-primary mt-4" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></td>
+                                    <th><?= $value['id_sub_category']; ?></th>
+                                    <th><?= $value['name_sub_category']; ?></th>
+                                    <th><?= $value['parent_category_id']; ?></th>
+                                    <th><a href="category/deleteSubCategory.php?id=<?= $value['id_sub_category']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
+                                    <th><a href="../admin/admin.php?act=editSubCategory&&id=<?= $value['id_sub_category']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
                                 </tr>
                             <?php endforeach; ?>
 
