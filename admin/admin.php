@@ -81,6 +81,9 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="admin.php?act=listProduct">List Products</a>
+                        <a class="collapse-item" href="admin.php?act=listProductVariant">List Products Variant</a>
+                        <a class="collapse-item" href="admin.php?act=trendingProduct">Trending Products</a>
+
                     </div>
                 </div>
             </li>
@@ -93,18 +96,30 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">List Customers</a>
+                        <a class="collapse-item" href="admin.php?act=listCustomer">List Customers</a>
                     </div>
                 </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComment" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fa-solid fa-bowl-food"></i>
-                    <span>Comments</span>
+                    <i class="fa-solid fa-comment"></i>
+                    <span>Users Activities</span>
                 </a>
                 <div id="collapseComment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">List Comment</a>
+                        <a class="collapse-item" href="admin.php?act=listComment">List Comment</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Orders</span>
+                </a>
+                <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="">Orders History</a>
                     </div>
                 </div>
             </li>
@@ -281,7 +296,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hoang Long</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_COOKIE['username_admin']  ?></span>
                                 <img class="img-profile rounded-circle" src="assets/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -381,8 +396,6 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case "listProduct":
                             $list_product = load_all_product();
-
-
                             include('products/listProduct.php');
                             break;
                         case "addProduct":
@@ -401,6 +414,24 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             }
                             include('products/addProduct.php');
                             break;
+                        case "editProduct":
+                            $product_id = $_GET['id'];
+                            $list_category = load_all_category();
+                            $product = get_product($product_id);
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listProduct");
+                            }
+                            if (isset($_POST['edit_product'])) {
+                                $name_product = $_POST['name_product'];
+                                $price = $_POST['price'];
+                                $description = $_POST['description'];
+                                $id_sub_category = $_POST['select_sub'];
+                                update_product($product_id, $name_product, $price, $description, $id_sub_category);
+                                header("Location: admin.php?act=listProduct");
+                            }
+                            include('products/editProduct.php');
+                            break;
+
                         case "imageProduct":
                             $id = $_GET['pro'];
                             $name = get_product($id)[0]['name']; //Name product
@@ -424,6 +455,93 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                                 header("Refresh:0");
                             }
                             include('products/imageProduct.php');
+                            break;
+                        case "listProductVariant":
+                            $list_product_variant = load_all_product_variant();
+                            include('products/listProductVariant.php');
+                            break;
+                        case "trendingProduct":
+                            include('products/trendingProduct.php');
+                            break;
+                        case "addVariant":
+                            $list_sub_category = load_all_sub_category();
+                            $list_origin = load_all_origin();
+                            $list_type = load_all_type();
+                            if (isset($_POST['add_variant'])) {
+                                $id_product = $_POST['id_product'];
+                                $id_origin = $_POST['id_origin'];
+                                $id_type = $_POST['id_type'];
+                                $price = $_POST['price'];
+                                $quanlity_inventory = $_POST['quanlity_inventory'];
+                                add_product_variant($id_product[0], $id_origin, $id_type, $price, $quanlity_inventory);
+                                echo "<script>alert('SUCCESS!!!')</script>";
+                                header("Location: admin.php?act=listProductVariant");
+                            }
+
+                            include('products/addVariant.php');
+                            break;
+                        case "editVariant":
+                            $list_sub_category = load_all_sub_category();
+                            $list_origin = load_all_origin();
+                            $list_type = load_all_type();
+                            $id = $_GET['id'];
+                            $product_variant = get_product_variant($id);
+                            if (isset($_POST['add_variant'])) {
+                                $id_origin = $_POST['id_origin'];
+                                $id_type = $_POST['id_type'];
+                                $price = $_POST['price'];
+                                $quanlity_inventory = $_POST['quanlity_inventory'];
+                                edit_product_variant($product_variant[0]['id_product_variant'], $id_origin, $id_type, $price, $quanlity_inventory);
+                                echo "<script>alert('SUCCESS!!!')</script>";
+                                // header("Refresh:0");
+                                header("Location: admin.php?act=listProductVariant");
+                            }
+                            include('products/editVariant.php');
+                            break;
+                        case "listCustomer":
+                            $list_user = load_all_user();
+                            include('users/listUser.php');
+                            break;
+                        case "detailUser":
+                            $username = $_GET['user'];
+                            $main_user = get_user($username);
+                            if (isset($_POST['change_avt'])) {
+                                $avt = $_FILES['avt']['name'];
+                                $tmp = $_FILES['avt']['tmp_name'];
+                                $move  = '../assets/img/user/' . $avt;
+                                if ($_FILES['avt']['size'] > 0) {
+                                    move_uploaded_file($tmp, $move);
+                                    update_avatar($username,  $avt);
+                                    header("Refresh:0");
+                                } else echo "<script>alert('Empty image')</script>";
+                            }
+                            if (isset($_POST['save'])) {
+                                $full_name = $_POST['full_name'];
+                                $password = $_POST['password'];
+                                $email = $_POST['email'];
+                                $address = $_POST['address'];
+                                $telephone =  $_POST['telephone'];
+                                admin_change_user($username, $full_name, $password, $email, $address, $telephone);
+                                echo "<script>alert('Success!!!')</script>";
+                                header("Refresh:0");
+                            }
+                            include('users/detailUser.php');
+                            break;
+                        case "addUser":
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=listCustomer");
+                            }
+                            if (isset($_POST["create_account"])) {
+                                $email = $_POST['email'];
+                                $username = $_POST['username'];
+                                $password = $_POST['password'];
+                                sign_up($email, $username, $password);
+                                header("Location: admin.php?act=listCustomer");
+                            }
+                            include('users/addUser.php');
+                            break;
+                        case "listComment":
+                            include('comment/listComment.php');
                             break;
                         default:
                             include('dashboard.php');

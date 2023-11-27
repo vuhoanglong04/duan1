@@ -23,7 +23,7 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Product</h1>
+        <h1 class="h3 mb-2 text-gray-800">Product Variant</h1>
         <!-- Search -->
         <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
@@ -36,47 +36,40 @@
             </div>
         </form>
         <br>
-        <a href="admin.php?act=addProduct" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more product</a>
+        <a href="admin.php?act=addVariant" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more product variant</a>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">All Category</h6>
             </div>
-            <div class="card-body">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>#ID</th>
-                                <th>Name Product</th>
+                                <th>#ID Product Variant</th>
+                                <th>#ID Product</th>
+                                <th>#ID Origin</th>
+                                <th>#ID Type</th>
                                 <th>Price</th>
-                                <th>Image</th>
-                                <th>Description</th>
-                                <th>Id Sub Category</th>
-                                <th>Image Product</th>
-                                <th>Delete</th>
+                                <th>Quanlity Inventory</th>
                                 <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($list_product as $key => $value) : ?>
+                            <?php foreach ($list_product_variant as $key => $value) : ?>
                                 <tr>
-                                    <th><?= $value['product_id']; ?></th>
-                                    <th><?= $value['name']; ?></th>
-                                    <th>$<?= $value['price']; ?></th>
-                                    <th>
-                                        <?php
-                                        $main_image = get_main_image($value['product_id']);
-                                    
-                                        ?>
-                                        <img width="100" height="100" style="object-fit: cover;" src="../assets/img/product/<?= $main_image[0]['image_path']; ?>" alt="Image">
-                                    </th>
-                                    <th><?= $value['desciption']; ?></th>
-                                    <th><?= $value['sub_category_id']; ?></th>
-                                    <th><a href="admin.php?act=imageProduct&&pro=<?= $value['product_id']; ?>" class="btn btn-primary"><i class="fa-solid fa-images mr-3"></i>Image</a></th>
-                                    <th><a href="products/deleteProduct.php?id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
-                                    <th><a href="../admin/admin.php?act=editProduct&&id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
+                                    <th><?= $value['id_product_variant']; ?></th>
+                                    <th><?= $value['id_product']; ?></th>
+                                    <th><?= $value['id_origin']; ?></th>
+                                    <th><?= $value['id_type']; ?></th>
+                                    <th>$<?= $value['price_product_variant']; ?></th>
+                                    <th><?= $value['quanlity_inventory']; ?></th>
+                                    <th><a href="admin.php?act=editVariant&id=<?= $value['id_product_variant']; ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
+                                    <th><a href="products/deleteProductVariant.php?id=<?= $value['id_product_variant']; ?>" class="btn btn-primary"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
+
                                 </tr>
                             <?php endforeach; ?>
 
