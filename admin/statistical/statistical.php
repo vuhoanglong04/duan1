@@ -19,13 +19,14 @@
 
 </head>
 
+
 <body id="page-top">
 
     <div class="container-fluid">
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">Statistical</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
 
@@ -113,12 +114,101 @@
                 </div>
             </div>
         </div>
+
+
+
+
         <div class="row">
-       
+
+            <div class="col-sm-6">
+                <h3 class="h4 mb-2 text-gray-800">User</h3>
+
+                <div class="table-responsive" style="background-color: white;height:300px;overflow: scroll;">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($list_user as $key => $value) : ?>
+                                <tr>
+                                    <th><?= $value['username']; ?></th>
+                                    <th><?= $value['email']; ?></th>
+                                    <th><?= $value['role']; ?></th>
+
+                                </tr>
+                            <?php endforeach; ?>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <h3 class="h4 mb-2 text-gray-800">User Activities</h3>
+
+                    <div class="table-responsive" style="background-color: white;height:300px;overflow: hidden; width:35rem">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>User Activities</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($new_comment as $key => $value) : ?>
+                                    <tr>
+                                        <th><strong><?= $value['username']; ?></strong> comment on product : <a href="../index.php?act=shop-details&&pro=<?= $value['product_id']; ?>"><?= $value['name']; ?></a></th>
+                                    </tr>
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="row mt-5">
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+                    <h3 class="h4 mb-2 text-gray-800" >Sold Out Products</h3>
+
+                    <div class="table-responsive" style="background-color: white;height:300px;overflow: scroll; width:100%">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#ID Product Variant</th>
+                                    <th>#ID Product</th>
+                                    <th>#ID Origin</th>
+                                    <th>#ID Type</th>
+                                    <th>Name</th>
+                                    <th>Sold Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($sold_out as $key => $value) : ?>
+                                    <tr>
+                                        <th><?= $value['id_product_variant']?></th>
+                                        <th><?= $value['product_id']?></th>
+                                        <th><?= $value['id_origin']?></th>
+                                        <th><?= $value['id_type']?></th>
+                                        <th><?= $value['name']?></th>
+                                        <th style="color:green"><?= $value['quanlity']?></th>
+                                    </tr>
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </body>
-
 
 </html>

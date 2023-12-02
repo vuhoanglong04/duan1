@@ -37,6 +37,25 @@
 </head>
 
 <body>
+    <style>
+        #nameOrigin {
+            color: white;
+            background-color: #9AD0C2;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+
+        #nameType {
+            color: white;
+            background-color: #5FBDFF;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+
+        .remove_from_cart_button:hover {
+            cursor: pointer;
+        }
+    </style>
     <div class="preloader"><button class="th-btn preloaderCls">Cancel Preloader</button>
         <div class="preloader-inner">
             <div class="loader"><span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -49,34 +68,51 @@
                 <h3 class="widget_title">Shopping cart</h3>
                 <div class="widget_shopping_cart_content">
                     <ul class="woocommerce-mini-cart cart_list product_list_widget">
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="assets/img/product/product_thumb_1_1.jpg" alt="Cart Image">Bosco Apple
-                                Fruit</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>940.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="assets/img/product/product_thumb_1_2.jpg" alt="Cart Image">Green
-                                Cauliflower</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>899.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="assets/img/product/product_thumb_1_3.jpg" alt="Cart Image">Mandarin orange</a>
-                            <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>756.00</span></span>
-                        </li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="assets/img/product/product_thumb_1_4.jpg" alt="Cart Image">Shallot Red
-                                onion</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>723.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="assets/img/product/product_thumb_1_5.jpg" alt="Cart Image">Sour Red Cherry</a>
-                            <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>1080.00</span></span>
-                        </li>
+                        <?php $total = 0; ?>
+                        <?php
+                        if (isset($_SESSION['cart']) && isset($_COOKIE['username'])) {
+                            foreach ($_SESSION['cart'] as $key => $value) : ?>
+                                <?php
+
+                                $total += $value['quanlity'] * $value['price_product_variant']  ?>
+                                <li class="woocommerce-mini-cart-item mini_cart_item">
+                                    <a href="deleteCart.php?id_product_variant=<?= $value['id_product_variant']; ?>" class="remove remove_from_cart_button"><i class="far fa-times"></i></a>
+                                    <a href="#"><img style="object-fit: cover;" src="assets/img/product/<?= $value['image_path'] ?>" alt="Cart Image"><?= $value['name']  ?></a>
+                                    <span class="quantity">
+                                        <?= $value['quanlity'] ?> × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span><?= $value['price_product_variant'] ?>.00
+                                        </span>
+                                        <p id="nameOrigin"><?= $value['value_origin'] ?></p>
+                                        <p id="nameType"><?= $value['value_type'] ?></p>
+
+                                    </span>
+                                </li>
+                        <?php endforeach;
+                        } ?>
+
                     </ul>
-                    <p class="woocommerce-mini-cart__total total"><strong>Subtotal:</strong> <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>4398.00</span></p>
+                    <p class="woocommerce-mini-cart__total total"><strong>Subtotal:</strong> <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span><?= $total ?></span></p>
                     <p class="woocommerce-mini-cart__buttons buttons"><a href="index.php?act=cart" class="th-btn wc-forward">View
-                            cart</a> <a href="index.php?act=checkout" class="th-btn checkout wc-forward">Checkout</a></p>
+                            cart</a></p>
                 </div>
             </div>
         </div>
     </div>
     <div class="popup-search-box d-none d-lg-block"><button class="searchClose"><i class="fal fa-times"></i></button>
-        <form action="#"><input type="text" placeholder="What are you looking for?"> <button type="submit"><i class="fal fa-search"></i></button></form>
+        <form method="post">
+            <input type="text" placeholder="What are you looking for?">
+            <button name="search_modal" type="submit"><i class="fal fa-search"></i></button>
+        </form>
     </div>
+    <?php
+    if (isset($_POST['search_modal'])) {
+        header("Location: index.php?act=shop");
+    }
+    ?>
 
     <?php
     $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
     $user_profile_mobile = "<a href='index.php?act=login'  class='th-btn mobile_a style4'>Login</a>";
-    if (isset($_COOKIE['username']) && $_COOKIE['password']) {
+    if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
         $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
         $user_profile_mobile = "<a href='index.php?act=profile' class='th-btn mobile_a style4 mt-2'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
     }
@@ -92,7 +128,8 @@
                     <li><a href="index.php?act=shop">Shop</a></li>
                     <li><a href="index.php?act=cart">Cart</a></li>
                     <li><a href="index.php?act=wishlist">Wishlist</a></li>
-                    <li><a href="index.php?act=checkout">Checkout</a></li>
+                    <li><a href="index.php?act=history">Order History</a></li>
+
                     <li><a href="index.php?act=blog">Blog</a></li>
                     <?= $user_profile_mobile ?>
 
@@ -136,7 +173,8 @@
                                     <li><a href="index.php?act=shop">Shop</a></li>
                                     <li><a href="index.php?act=cart">Cart</a></li>
                                     <li><a href="index.php?act=wishlist">Wishlist</a></li>
-                                    <li><a href="index.php?act=checkout">Checkout</a></li>
+                                    <li><a href="index.php?act=history">Order History</a></li>
+
                                     <li><a href="index.php?act=blog">Blog</a></li>
 
                                 </ul>
@@ -145,11 +183,12 @@
 
                         <?php
                         $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
-                        // $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
 
-                        if (isset($_COOKIE['username']) && $_COOKIE['password']) {
+                        if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
                             $user_profile = "<a href='index.php?act=profile' class='th-btn style4'><i class='fa-solid fa-user-large' style='font-size:25px;color:white;'></i><a>";
-                        }
+                        } else
+                            $user_profile = "<a href='index.php?act=login' class='th-btn style4'>Login<i class='fas fa-chevrons-right ms-2'></i></a>";
+
 
                         ?>
                         <div class="col-auto d-none d-xl-block">
@@ -161,5 +200,15 @@
         </div>
     </header>
 </body>
+
+<script>
+    var badge = document.querySelector('.badge')
+    var count = 0;
+    document.querySelectorAll('.mini_cart_item').forEach(item => {
+        count++;
+    })
+    badge.innerHTML = count
+</script>
+
 
 </html>

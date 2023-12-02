@@ -25,11 +25,11 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800"><i class="fa-solid fa-user mr-3"></i>Customers</h1>
         <!-- Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
+        <form method="post" class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
-                <input type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <input name="username_search" type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
+                    <button name="search_username" class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>
@@ -43,8 +43,8 @@
                 <h6 class="m-0 font-weight-bold text-primary">All Category</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive pb-5">
-                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                <div class="table-responsive pb-g">
+                    <table class="table table-bordered text-center pb-2" id="dataTable" width="100%" cellspacing="0">
                         <form action="" method="POST">
                             <thead>
                                 <tr>

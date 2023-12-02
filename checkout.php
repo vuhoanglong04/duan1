@@ -51,79 +51,46 @@
     </div>
     <div class="th-checkout-wrapper space-top space-extra-bottom">
         <div class="container">
-            <div class="woocommerce-form-login-toggle">
-                <div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <form action="#" class="woocommerce-form-login">
-                        <div class="form-group"><label>Username or email *</label> <input type="text" class="form-control" placeholder="Username or email"></div>
-                        <div class="form-group"><label>Password *</label> <input type="text" class="form-control" placeholder="Password"></div>
-                        <div class="form-group">
-                            <div class="custom-checkbox"><input type="checkbox" id="remembermylogin"> <label for="remembermylogin">Remember Me</label></div>
-                        </div>
-                        <div class="form-group"><button type="submit" class="th-btn">Login</button>
-                            <p class="mt-3 mb-0"><a class="text-reset" href="#">Lost your password?</a></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="woocommerce-form-coupon-toggle">
-                <div class="woocommerce-info">Have a coupon? <a href="#" class="showcoupon">Click here to enter your code</a></div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <form action="#" class="woocommerce-form-coupon">
-                        <div class="form-group"><label>Coupon code</label> <input type="text" class="form-control" placeholder="Write your coupon code"></div>
-                        <div class="form-group"><button type="submit" class="th-btn">Apply coupon</button></div>
-                    </form>
-                </div>
-            </div>
+
             <form action="#" class="woocommerce-checkout mt-40">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <h2 class="h4">Billing Details</h2>
                         <div class="row">
-                            <div class="col-12 form-group"><select class="form-select">
-                                    <option>United Kingdom (UK)</option>
-                                    <option>United State (US)</option>
-                                    <option>Equatorial Guinea (GQ)</option>
-                                    <option>Australia (AU)</option>
-                                    <option>Germany (DE)</option>
-                                </select></div>
-                            <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="First Name"></div>
-                            <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="Last Name"></div>
-                            <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Your Company Name"></div>
-                            <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Street Address"> <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)"></div>
-                            <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Town / City"></div>
-                            <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="Country"></div>
-                            <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="Postcode / Zip"></div>
-                            <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Email Address"> <input type="text" class="form-control" placeholder="Phone number"></div>
-                            <div class="col-12 form-group"><input type="checkbox" id="accountNewCreate"> <label for="accountNewCreate">Create An Account?</label></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <p id="ship-to-different-address"><input id="ship-to-different-address-checkbox" type="checkbox" name="ship_to_different_address" value="1" checked="checked"> <label for="ship-to-different-address-checkbox">Ship to a different address? <span class="checkmark"></span></label></p>
-                        <div class="shipping_address">
-                            <div class="row">
-                                <div class="col-12 form-group"><select class="form-select">
-                                        <option>United Kingdom (UK)</option>
-                                        <option>United State (US)</option>
-                                        <option>Equatorial Guinea (GQ)</option>
-                                        <option>Australia (AU)</option>
-                                        <option>Germany (DE)</option>
-                                    </select></div>
-                                <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="First Name"></div>
-                                <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="Last Name"></div>
-                                <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Your Company Name"></div>
-                                <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Street Address"> <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)"></div>
-                                <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Town / City"></div>
-                                <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="Country"></div>
-                                <div class="col-md-6 form-group"><input type="text" class="form-control" placeholder="Postcode / Zip"></div>
-                                <div class="col-12 form-group"><input type="text" class="form-control" placeholder="Email Address"> <input type="text" class="form-control" placeholder="Phone number"></div>
+                            <div class="col-md-6 form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" class="form-control" value="<?= $user[0]['username'] ?>" readonly>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="full_name">Full Name</label>
+                                <input type="text" id="full_name" class="form-control" value="<?= $user[0]['full_name'] ?>" readonly>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label for="email">Email</label>
+                                <input type="text" id="email" class="form-control" value="<?= $user[0]['email'] ?>" readonly>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" class="form-control" value="<?= $user[0]['address'] ?>" readonly>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label for="telephone">Telephone</label>
+                                <input type="text" id="telephone" class="form-control" value="<?= $user[0]['telephone'] ?>" readonly>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="country">Country</label>
+                                <input type="text" id="country" class="form-control" placeholder="Country" value="Vietnam" readonly>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <a href="index.php?act=profile" class="btn btn-success">Change Information?</a>
                             </div>
                         </div>
-                        <div class="col-12 form-group"><textarea cols="20" rows="5" class="form-control" placeholder="Notes about your order, e.g. special notes for delivery."></textarea></div>
                     </div>
                 </div>
             </form>
@@ -134,62 +101,89 @@
                         <tr>
                             <th class="cart-col-image">Image</th>
                             <th class="cart-col-productname">Product Name</th>
+                            <th>Origin</th>
+                            <th>Type</th>
                             <th class="cart-col-price">Price</th>
                             <th class="cart-col-quantity">Quantity</th>
                             <th class="cart-col-total">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="cart_item">
-                            <td data-title="Product"><a class="cart-productimage" href="shop-details.php"><img width="91" height="91" src="assets/img/product/product_thumb_1_1.jpg" alt="Image"></a></td>
-                            <td data-title="Name"><a class="cart-productname" href="shop-details.php">Bosco Apple Fruit</a></td>
-                            <td data-title="Price"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Quantity"><strong class="product-quantity">01</strong></td>
-                            <td data-title="Total"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                        </tr>
+                        <?php foreach ($_SESSION['cart'] as $key => $value) : ?>
+                            <tr class="cart_item">
+                                <td data-title="Product"><a class="cart-productimage" href="index.php?act=shop-details&&pro=<?= $value['id_product'] ?>"><img width="91" height="91" src="assets/img/product/<?= $value['image_path'] ?>" alt="Image"></a></td>
+                                <td data-title="Name"><a class="cart-productname" href="index.php?act=shop-details&&pro=<?= $value['id_product'] ?>"><?= $value['name'] ?></a></td>
+                                <td><?= $value['value_origin'] ?></td>
+                                <td><?= $value['value_type'] ?></td>
+                                <td data-title="Price"><span class="amount"><bdi><span>$</span><?= $value['price_product_variant'] ?></bdi></span></td>
+                                <td data-title="Quantity"><strong class="product-quantity"><?= $value['quanlity'] ?></strong></td>
+                                <td data-title="Total"><span class="amount"><bdi><span>$</span><?= $value['quanlity'] * $value['price_product_variant'] ?></bdi></span></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                     <tfoot class="checkout-ordertable">
                         <tr class="cart-subtotal">
+                            <th></th>
+                            <th></th>
                             <th>Subtotal</th>
-                            <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>281.05</bdi></span></td>
+                            <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><?= $_SESSION['order'][0]['total']?></bdi></span></td>
                         </tr>
                         <tr class="woocommerce-shipping-totals shipping">
+                            <th></th>
+                            <th></th>
                             <th>Shipping</th>
-                            <td data-title="Shipping" colspan="4">Enter your address to view shipping options.</td>
+                            <td data-title="Shipping" colspan="4"><?= $_SESSION['order'][0]['name_transport'] ?>($<?= $_SESSION['order'][0]['fee'] ?>)</td>
+                        </tr>
+                        <tr class="woocommerce-shipping-totals shipping">
+                            <th></th>
+                            <th></th>
+                            <th>Coupon</th>
+                            <td data-title="Shipping" colspan="4"><?= $_SESSION['order'][0]['coupon'] ?>(-<?= $_SESSION['order'][0]['percent_discount'] ?>%)</td>
                         </tr>
                         <tr class="order-total">
+                            <th></th>
+                            <th></th>
                             <th>Total</th>
-                            <td data-title="Total" colspan="4"><strong><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>281.05</bdi></span></strong></td>
+                            <td data-title="Total" colspan="4"><strong><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><?= $_SESSION['order'][0]['total'] + $_SESSION['order'][0]['fee'] - $_SESSION['order'][0]['total']*$_SESSION['order'][0]['percent_discount']/100  ?></bdi></span></strong></td>
                         </tr>
+
                     </tfoot>
                 </table>
             </form>
+
             <div class="mt-lg-3 mb-30">
-                <div class="woocommerce-checkout-payment">
-                    <ul class="wc_payment_methods payment_methods methods">
-                        <li class="wc_payment_method payment_method_bacs"><input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked"> <label for="payment_method_bacs">Direct bank transfer</label>
-                            <div class="payment_box payment_method_bacs">
-                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                            </div>
-                        </li>
-                        <li class="wc_payment_method payment_method_cheque"><input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque"> <label for="payment_method_cheque">Cheque Payment</label>
-                            <div class="payment_box payment_method_cheque">
-                                <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                            </div>
-                        </li>
-                        <li class="wc_payment_method payment_method_cod"><input id="payment_method_cod" type="radio" class="input-radio" name="payment_method"> <label for="payment_method_cod">Credit Cart</label>
-                            <div class="payment_box payment_method_cod">
-                                <p>Pay with cash upon delivery.</p>
-                            </div>
-                        </li>
-                        <li class="wc_payment_method payment_method_paypal"><input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal"> <label for="payment_method_paypal">Paypal</label>
-                            <div class="payment_box payment_method_paypal">
-                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="form-row place-order"><button type="submit" class="th-btn">Place order</button></div>
-                </div>
+                <form action="" method="post">
+                    <div class="woocommerce-checkout-payment">
+                        <ul class="wc_payment_methods payment_methods methods">
+                            <?php foreach ($list_payment as $key => $value) : ?>
+                                <li class="wc_payment_method payment_method_bacs">
+                                    <input id="payment_method_bacs_<?= $value['name_payment'] ?>" type="radio" class="input-radio" name="payment_method" value="<?= $value['name_payment'] ?>">
+                                    <label for="payment_method_bacs_<?= $value['name_payment'] ?>"><?= $value['name_payment'] ?></label>
+                                    <div class="payment_box payment_method_bacs">
+                                        
+                                        <?php
+                                        if ($value['name_payment'] == 'Direct bank transfer') {
+                                            echo "
+                                            <p>Make your payment directly into our bank account.</p>
+                                            <strong>MBBANK: 0344847295</strong>";
+                                        } else if($value['name_payment'] == 'Paypal'){
+                                            echo "<p>Make your payment directly into our bank account.</p>
+                                            <strong>Paypal: longprovip2508@gmail.com</strong>";
+                                        }
+                                        else{
+                                            echo "";
+                                        }
+                                        ?>
+                                    </div>
+                                </li>
+                            <?php endforeach ?>
+                        </ul>
+                        <div class="form-row place-order">
+                            <button type="submit" name="cancel" class="th-btn">Cancel</button>
+                            <button type="submit" name="place_order" class="th-btn">Place order</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

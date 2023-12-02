@@ -25,7 +25,7 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Category</h1>
         <!-- Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
+        <!-- <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
                 <input type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
@@ -34,7 +34,7 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form> -->
         <br>
         <a href="admin.php?act=addCategory" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more category</a>
         <!-- DataTales Example -->

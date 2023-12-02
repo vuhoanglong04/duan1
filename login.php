@@ -159,9 +159,10 @@ ob_start();
                   <h3 class="auth-title">Recover your password</h3>
                   <p>Fill in your e-mail address below and we will send you an email with further instructions.</p>
                 </div>
-                <form name="forgetForm" class="forgetForm" action="login.php" method="POST">
+                <form name="forgetForm" class="forgetForm" method="POST">
+
                   <div class="form-group">
-                    <input type="email" class="form-control" name="email_forgot" placeholder="Email address">
+                    <input type="text" class="form-control" name="username_forgot" placeholder="Username">
                   </div>
                   <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block" name="forgot" type="submit" style="background-color:#017d03;color:white;font-weight:600">Recover your password</button>
@@ -212,6 +213,21 @@ ob_start();
       header("Location: index.php?act=");
     } else {
       echo "<script>alert('Username or password is not correct')</script>";
+    }
+  }
+  if (isset($_POST['forgot'])) {
+    $username = $_POST['username_forgot'];
+    $pass = recoverPassword($username);
+    if ($username == "") {
+      echo "<script>alert('Please Enter your password')</script>";
+    } else {
+      if (count($pass) > 0) {
+        echo "<script>alert('Your password is :" . $pass[0]['password'] . "')</script>";
+      }
+
+      if (count($pass) == 0) {
+        echo "<script>alert('Error username')</script>";
+      }
     }
   }
   ?>

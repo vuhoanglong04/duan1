@@ -25,11 +25,11 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Product</h1>
         <!-- Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
+        <form method="post" class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
-                <input type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <input name="name_product_search" type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
+                    <button name="search_product" class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>
@@ -68,11 +68,11 @@
                                     <th>
                                         <?php
                                         $main_image = get_main_image($value['product_id']);
-                                    
+
                                         ?>
                                         <img width="100" height="100" style="object-fit: cover;" src="../assets/img/product/<?= $main_image[0]['image_path']; ?>" alt="Image">
                                     </th>
-                                    <th><?= $value['desciption']; ?></th>
+                                    <th><?= substr($value['desciption'], 0, 25); ?>...</th>
                                     <th><?= $value['sub_category_id']; ?></th>
                                     <th><a href="admin.php?act=imageProduct&&pro=<?= $value['product_id']; ?>" class="btn btn-primary"><i class="fa-solid fa-images mr-3"></i>Image</a></th>
                                     <th><a href="products/deleteProduct.php?id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>

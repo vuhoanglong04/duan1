@@ -99,50 +99,33 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mb-2 text-primary">Edit Variant</h6>
+                                    <h6 class="mb-2 text-primary">Add Trending Product</h6>
                                 </div>
-                               
-                                <div class="row pl-3">
-                                    <div class="form-group col-sm-3">
-                                        <label for="origin">Origin</label><br>
-                                        <select name="id_origin" id="origin" style="font-weight:650;border:3px solid #ccc" class="btn text-left">
-                                            <?php foreach ($list_origin as $key => $value) : ?>
-                                                <!-- <option value="" selected hidden>Choose Origin</option> -->
-                                                <option <?php
-                                                        if ($value['id_origin'] == $product_variant[0]['id_origin']) echo "selected";
-                                                        ?> value="<?= $value['id_origin'] ?>"><?= $value['value_origin'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-sm-3">
-                                        <label for="type">Type</label><br>
-                                        <select name="id_type" id="type" style="font-weight:650;border:3px solid #ccc" class="btn text-left">
-                                            <!-- <option value="" selected hidden>Choose Type</option> -->
-                                            <?php foreach ($list_type as $key => $value) : ?>
-
-                                                <option <?php
-                                                        if ($value['id_type'] == $product_variant[0]['id_type']) echo "selected";
-                                                        ?> value="<?= $value['id_type'] ?>"><?= $value['value_type'] ?></option>
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="category">Category</label><br>
+                                        <select name="id_subcategory" id="sub_category" style="font-weight:650;border:3px solid #ccc" class="btn text-left">
+                                            <option value="" selected hidden>Choose Category</option>
+                                            <?php foreach ($list_sub_category as $key => $value) : ?>
+                                                <option value="<?= $value['id_sub_category'] ?>"><?= $value['name_sub_category'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 justify-content-between">
-                                    <div class="form-group">
-                                        <label for="type">Price($)</label><br>
-                                        <input type="text" class="form-control" name="price" value="<?= $product_variant[0]['price_product_variant'] ?>" placeholder="...">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="type">Quanlity Inventory</label><br>
-                                        <input type="text" class="form-control" name="quanlity_inventory" value="<?= $product_variant[0]['quanlity_inventory'] ?>" placeholder="...">
+                                <div class="col-sm-8">
+                                    <div id="load">
+                                        <label for="product">Product</label><br>
+                                        <input type="text" class="form-control" name="product" disabled>
+
                                     </div>
                                 </div>
-
 
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
-                                            <button type="submit" id="submit" name="add_variant" class="btn btn-primary">Edit Product Variant</button>
+                                        <button type="submit" id="submit" name="cancel" class="btn btn-primary">Cancel</button>
+
+                                            <button type="submit" id="submit" name="add_trending" class="btn btn-primary">Add Product Variant</button>
                                         </div>
                                     </div>
                                 </div>
@@ -150,10 +133,26 @@
                     </div>
                 </div>
             </div>
-
+           
         </div>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $("#sub_category").change(function() {
+        var category_id = $(this).val();
+        $.ajax({
+            url: "products/loadProduct.php",
+            type: "POST",
+            data: {
+                category_id: category_id
+            },
+            success: function(data) {
+                $("#load").replaceWith(data);
+            },
+        });
 
+    });
+</script>
 
 </html>

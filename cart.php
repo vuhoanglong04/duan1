@@ -61,102 +61,151 @@
                             <th class="cart-col-image">Image</th>
                             <th class="cart-col-productname">Product Name</th>
                             <th class="cart-col-price">Price</th>
+                            <th class="cart-col-price">Origin</th>
+                            <th class="cart-col-price">Type</th>
                             <th class="cart-col-quantity">Quantity</th>
                             <th class="cart-col-total">Total</th>
                             <th class="cart-col-remove">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="cart_item">
-                            <td data-title="Product"><a class="cart-productimage" href="shop-detailis.php"><img width="91" height="91" src="assets/img/product/product_thumb_1_1.jpg" alt="Image"></a></td>
-                            <td data-title="Name"><a class="cart-productname" href="shop-detailis.php">Bosco Apple Fruit</a></td>
-                            <td data-title="Price"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Quantity">
-                                <div class="quantity"><button class="quantity-minus qty-btn"><i class="far fa-minus"></i></button> <input type="number" class="qty-input" value="1" min="1" max="99"> <button class="quantity-plus qty-btn"><i class="far fa-plus"></i></button></div>
-                            </td>
-                            <td data-title="Total"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Remove"><a href="#" class="remove"><i class="fal fa-trash-alt"></i></a></td>
-                        </tr>
-                        <tr class="cart_item">
-                            <td data-title="Product"><a class="cart-productimage" href="shop-detailis.php"><img width="91" height="91" src="assets/img/product/product_thumb_1_2.jpg" alt="Image"></a></td>
-                            <td data-title="Name"><a class="cart-productname" href="shop-detailis.php">Green Cauliflower</a></td>
-                            <td data-title="Price"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Quantity">
-                                <div class="quantity"><button class="quantity-minus qty-btn"><i class="far fa-minus"></i></button> <input type="number" class="qty-input" value="1" min="1" max="99"> <button class="quantity-plus qty-btn"><i class="far fa-plus"></i></button></div>
-                            </td>
-                            <td data-title="Total"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Remove"><a href="#" class="remove"><i class="fal fa-trash-alt"></i></a></td>
-                        </tr>
-                        <tr class="cart_item">
-                            <td data-title="Product"><a class="cart-productimage" href="shop-detailis.php"><img width="91" height="91" src="assets/img/product/product_thumb_1_3.jpg" alt="Image"></a></td>
-                            <td data-title="Name"><a class="cart-productname" href="shop-detailis.php">Mandarin orange</a></td>
-                            <td data-title="Price"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Quantity">
-                                <div class="quantity"><button class="quantity-minus qty-btn"><i class="far fa-minus"></i></button> <input type="number" class="qty-input" value="1" min="1" max="99"> <button class="quantity-plus qty-btn"><i class="far fa-plus"></i></button></div>
-                            </td>
-                            <td data-title="Total"><span class="amount"><bdi><span>$</span>18</bdi></span></td>
-                            <td data-title="Remove"><a href="#" class="remove"><i class="fal fa-trash-alt"></i></a></td>
-                        </tr>
+                        <?php
+                        if(isset($_SESSION['cart'])){
+                        foreach ($_SESSION['cart'] as $key => $value) : ?>
+                            <tr class="cart_item">
+                                <td data-title="Product"><a class="cart-productimage" href="shop-detailis.php"><img width="91" height="91" src="assets/img/product/<?= $value['image_path'] ?>" alt="Image"></a></td>
+                                <td data-title="Name"><a class="cart-productname" href="shop-detailis.php"><?= $value['name'] ?></a></td>
+                                <td data-title="Price"><span class="amount"><bdi><span>$</span><?= $value['price_product_variant'] ?></bdi></span></td>
+                                <td><?= $value['value_origin'] ?></td>
+                                <td><?= $value['value_type'] ?></td>
+
+                                <td data-title="Quantity">
+                                    <div class="quantity">
+                                        <button onclick="mirrorQuanlity(<?= $value['id_product_variant']; ?>, <?= $value['price_product_variant']; ?>)" class="quantity-minus qty-btn"><i class="far fa-minus"></i></button>
+                                        <input id="quantity_<?= $value['id_product_variant'] ?>" type="number" class="qty-input" value="<?= $value['quanlity'] ?>" min="1" max="99">
+                                        <button onclick="plusQuantity(<?= $value['id_product_variant']; ?>, <?= $value['price_product_variant'] ?>)" class="quantity-plus qty-btn"><i class="far fa-plus"></i></button>
+                                    </div>
+                                </td>
+                                <td data-title="Total">
+                                    <span class="amount_<?= $value['id_product_variant'] ?>">$<span class="totalProduct"><?= $value['quanlity'] * $value['price_product_variant'] ?></span>
+                                </td>
+                                <td data-title="Remove"><a href="deleteCart.php?id_product_variant=<?= $value['id_product_variant'] ?>" class="remove"><i class="fal fa-trash-alt"></i></a></td>
+                            </tr>
+                        <?php endforeach; }?>
                         <tr>
                             <td colspan="6" class="actions">
-                                <div class="th-cart-coupon"><input type="text" class="form-control" placeholder="Coupon Code..."> <button type="submit" class="th-btn">Apply Coupon</button></div><button type="submit" class="th-btn">Update cart</button> <a href="shop.php" class="th-btn">Continue Shopping</a>
+                                <!-- <div class="th-cart-coupon">
+                                    <input type="text" class="form-control" placeholder="Coupon Code..."> 
+                                    <button type="submit" class="th-btn">Apply Coupon</button>
+                                </div> -->
+                                <a type="submit" href="index.php?act=cart" class="th-btn">Refresh cart</a>
+                                <a href="index.php?act=shop" class="th-btn">Continue Shopping</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </form>
+            
             <div class="row justify-content-end">
+
                 <div class="col-md-8 col-lg-7 col-xl-6">
-                    <h2 class="h4 summary-title">Cart Totals</h2>
-                    <table class="cart_totals">
-                        <tbody>
-                            <tr>
-                                <td>Cart Subtotal</td>
-                                <td data-title="Cart Subtotal"><span class="amount"><bdi><span>$</span>47</bdi></span></td>
-                            </tr>
-                            <tr class="shipping">
-                                <th>Shipping and Handling</th>
-                                <td data-title="Shipping and Handling">
-                                    <ul class="woocommerce-shipping-methods list-unstyled">
-                                        <li><input type="radio" id="free_shipping" name="shipping_method" class="shipping_method"> <label for="free_shipping">Free shipping</label></li>
-                                        <li><input type="radio" id="flat_rate" name="shipping_method" class="shipping_method" checked="checked"> <label for="flat_rate">Flat rate</label></li>
-                                    </ul>
-                                    <p class="woocommerce-shipping-destination">Shipping options will be updated during checkout.</p>
-                                    <form action="#" method="post"><a href="#" class="shipping-calculator-button">Change address</a>
-                                        <div class="shipping-calculator-form">
-                                            <p class="form-row"><select class="form-select">
-                                                    <option value="AR">Argentina</option>
-                                                    <option value="AM">Armenia</option>
-                                                    <option value="BD" selected="selected">Bangladesh</option>
-                                                </select></p>
-                                            <p><select class="form-select">
-                                                    <option value="">Select an option…</option>
-                                                    <option value="BD-05">Bagerhat</option>
-                                                    <option value="BD-01">Bandarban</option>
-                                                    <option value="BD-02">Barguna</option>
-                                                    <option value="BD-06">Barishal</option>
-                                                </select></p>
-                                            <p class="form-row"><input type="text" class="form-control" placeholder="Town / City"></p>
-                                            <p class="form-row"><input type="text" class="form-control" placeholder="Postcode / ZIP"></p>
-                                            <p><button class="th-btn">Update</button></p>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr class="order-total">
-                                <td>Order Total</td>
-                                <td data-title="Total"><strong><span class="amount"><bdi><span>$</span>47</bdi></span></strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="wc-proceed-to-checkout mb-30"><a href="checkout.php" class="th-btn">Proceed to checkout</a></div>
+                    <form action="" method="post">
+                        <h2 class="h4 summary-title">Cart Totals</h2>
+                        <table class="cart_totals">
+                            <tbody>
+                                <tr>
+                                    <td>Cart Subtotal</td>
+                                    <td data-title="Cart Subtotal">
+                                        <span class="amount">$ <span>0</span></span>
+                                    </td>
+                                </tr>
+                                <tr class="shipping">
+                                    <th>Shipping and Handling</th>
+                                    <td data-title="Shipping and Handling">
+                                        <ul class="woocommerce-shipping-methods list-unstyled">
+                                            <?php foreach ($list_transport as $key => $value) : ?>
+                                                <li>
+                                                    <input type="radio" id="<?= $value['name_transport'] ?>" class="<?= $value['fee'] ?>" name="shipping_method" value="<?= $value['name_transport'] ?>" class="shipping_method">
+                                                    <label for="<?= $value['name_transport'] ?>"><?= $value['name_transport'] ?>($<?= $value['fee'] ?>)</label>
+                                                </li>
+                                            <?php endforeach ?>
+                                        </ul>
+                                        <p class="woocommerce-shipping-destination">Shipping options will be updated during checkout.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="order-total">
+                                    <td>Coupon(Optional)</td>
+                                    <td data-title="Total">
+                                                <input type="text" name="coupon" placeholder="...">
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="wc-proceed-to-checkout mb-30">
+                            <input type="submit" name="checkout" class="th-btn" value="PROCEED TO CHECKOUT">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
 </body>
+<script>
+    updateSum();
+
+    function updateSum() {
+        let sum = 0;
+        let showTotal = document.querySelector('.cart_totals .amount span');
+        let allPrice = document.querySelectorAll('.totalProduct');
+        allPrice.forEach(item => {
+            sum += Number(item.textContent);
+        })
+        showTotal.innerHTML = sum;
+    }
+
+    function mirrorQuanlity(productId, currenPrice) {
+        var currentQuantity = Number(document.getElementById('quantity_' + productId).value) - 1;
+        if (currentQuantity == 0) currentQuantity = 1;
+        // Thực hiện tăng/giảm số lượng dựa trên action
+        let newPrice = currenPrice * currentQuantity;
+        let total = document.querySelector('.amount_' + productId).querySelector('span');
+        total.innerHTML = newPrice;
+        updateSum();
+        updateQuanlity(productId, currentQuantity)
+    }
+
+    function plusQuantity(productId, currenPrice) {
+        var currentQuantity = Number(document.getElementById('quantity_' + productId).value) + 1;
+        // Thực hiện tăng/giảm số lượng dựa trên action
+        let newPrice = currenPrice * currentQuantity;
+        let total = document.querySelector('.amount_' + productId).querySelector('span');
+        total.innerHTML = newPrice;
+
+        updateSum();
+        updateQuanlity(productId, currentQuantity)
+    }
+
+    function updateQuanlity(productId, quanlity) {
+        $.ajax({
+            url: "quanlity.php",
+            type: "POST",
+            data: {
+                quanlity: quanlity,
+                product_id: productId
+            },
+            success: function(data) {
+                console.log(data);
+            },
+        });
+    }
+
+    let allMethodShipping = document.querySelectorAll('.woocommerce-shipping-methods input[name="shipping_method"]');
+  
+  
+</script>
 
 </html>

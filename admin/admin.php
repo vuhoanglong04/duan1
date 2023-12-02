@@ -119,17 +119,24 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 </a>
                 <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Orders History</a>
+                        <a class="collapse-item" href="admin.php?act=orderHistory">Orders History</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseStatistic" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Statistic</span>
+                </a>
+                <div id="collapseStatistic" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="admin.php?act=statistical">Statistic</a>
                     </div>
                 </div>
             </li>
 
 
-            <li class="nav-item">
-                <a class="nav-link" href="admin.php?act=table">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -323,6 +330,9 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 include('../model/user.php');
                 include('../model/category.php');
                 include('../model/product.php');
+                include('../model/orders.php');
+                include('../model/comment.php');
+                include('../model/statistical.php');
 
                 if (isset($_GET["act"])) {
                     $act = $_GET["act"];
@@ -352,6 +362,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                                 echo "<script>alert('Success!!!')</script>";
                                 header("Location: admin.php?act=listSubCategory");
                             }
+
                             include('category/addSubCategory.php');
                             break;
                         case "listCategory":
@@ -360,6 +371,10 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case 'listSubCategory':
                             $list_sub_category = load_all_sub_category();
+                            if (isset($_POST['search'])) {
+                                $name_category_search = $_POST['name_category_search'];
+                                $list_sub_category = search_sub_category($name_category_search);
+                            }
                             include('category/listSubCategory.php');
                             break;
                         case 'editCategory':
@@ -396,11 +411,14 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case "listProduct":
                             $list_product = load_all_product();
+                            if (isset($_POST['search_product'])) {
+                                $name_product_search = $_POST['name_product_search'];
+                                $list_product = search_product($name_product_search);
+                            }
                             include('products/listProduct.php');
                             break;
                         case "addProduct":
                             $list_category = load_all_category();
-                            print_r($list_category);
                             if (isset($_POST["cancel"])) {
                                 header("Location: admin.php?act=listProduct");
                             }
@@ -458,15 +476,31 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case "listProductVariant":
                             $list_product_variant = load_all_product_variant();
+
                             include('products/listProductVariant.php');
                             break;
                         case "trendingProduct":
+                            $list_trending = load_all_trending_product();
+
                             include('products/trendingProduct.php');
+                            break;
+                        case "addTrendingProduct":
+                            $list_sub_category = load_all_sub_category();
+                            if (isset($_POST["cancel"])) {
+                                header("Location: admin.php?act=trendingProduct");
+                            }
+                            if (isset($_POST['add_trending'])) {
+                                $id_product = $_POST['id_product'][0];
+                                add_trending($id_product);
+                                header("Location: admin.php?act=trendingProduct");
+                            }
+                            include('products/addTrendingProduct.php');
                             break;
                         case "addVariant":
                             $list_sub_category = load_all_sub_category();
                             $list_origin = load_all_origin();
                             $list_type = load_all_type();
+
                             if (isset($_POST['add_variant'])) {
                                 $id_product = $_POST['id_product'];
                                 $id_origin = $_POST['id_origin'];
@@ -485,6 +519,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             $list_origin = load_all_origin();
                             $list_type = load_all_type();
                             $id = $_GET['id'];
+                            print_r($list_origin);
                             $product_variant = get_product_variant($id);
                             if (isset($_POST['add_variant'])) {
                                 $id_origin = $_POST['id_origin'];
@@ -500,6 +535,10 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case "listCustomer":
                             $list_user = load_all_user();
+                            if (isset($_POST['search_username'])) {
+                                $username = $_POST['username_search'];
+                                $list_user = search_user($username);
+                            }
                             include('users/listUser.php');
                             break;
                         case "detailUser":
@@ -541,12 +580,43 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             include('users/addUser.php');
                             break;
                         case "listComment":
+                            $list_comment =  load_all_comment();
                             include('comment/listComment.php');
                             break;
+                        case "orderHistory":
+                            $list_orders = load_all_orders();
+                            
+                            include('orders/orderHistory.php');
+                            break;
+                        case "order_detail":
+                            $id_order = $_GET['id_order'];
+                            $order = get_detail_order_by_id($id_order);
+                            print_r($order);
+                            include('orders/order_detail.php');
+                            break;
+                        case "statistical":
+                            $totalAll = total_revenue_all()[0]['sum'];
+                            $totalMonth =  total_revenue_month()[0]['sum'];
+                            $countOrder  = count_order()[0]['countOrder'];
+                            $countComment = count_comment()[0]['count'];
+                            $list_user = load_all_user();
+                            $new_comment = load_new_comment();
+                            $sold_out = sold_out_product();
+             
+                            include('statistical/statistical.php');
+                            break;
                         default:
+                            $totalAll = total_revenue_all()[0]['sum'];
+                            $totalMonth =  total_revenue_month()[0]['sum'];
+                            $countOrder  = count_order()[0]['countOrder'];
+                            $countComment = count_comment()[0]['count'];
                             include('dashboard.php');
                     }
                 } else {
+                    $totalAll = total_revenue_all()[0]['sum'];
+                    $totalMonth =  total_revenue_month()[0]['sum'];
+                    $countOrder  = count_order()[0]['countOrder'];
+                    $countComment = count_comment()[0]['count'];
                     include('dashboard.php');
                 }
 

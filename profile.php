@@ -130,7 +130,7 @@
             font-size: 14px;
             font-weight: 600;
         }
-        
+
         .text-left .saveChanges {
             background-color: #017D03;
             color: #ffffff;
@@ -142,196 +142,174 @@
 </head>
 
 <body>
-    <div class="container light-style mb-5 flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold py-3 mb-4">
-            Account settings
-        </h4>
-        <div class="card overflow-hidden">
-            <div class="row no-gutters row-bordered row-border-light">
-                <div class="col-md-3 pt-0">
-                    <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Admins</a>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="container light-style mb-5 flex-grow-1 container-p-y">
+            <h4 class="font-weight-bold py-3 mb-4">
+                Account settings
+            </h4>
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Admins</a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="account-general">
-                            <div class="card-body media align-items-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt class="d-block ui-w-80">
-                                <div class="media-body ml-4">
-                                    <label class="btn btn-outline-primary">
-                                        Upload new photo
-                                        <input type="file" class="account-settings-fileinput">
-                                    </label> &nbsp;
-                                    <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-                                    <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" class="form-control mb-1" value="Long">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" value="Vu Linh Hoang Long">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" value="longvlhph38689@fpt.edu.vn">
-                                </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-general">
+                                <div class="card-body media align-items-center">
+                                    <img height="5rem" width="5rem" style="object-fit: cover;" src="./assets/img/user/<?= $username[0]['image']; ?>" alt="image" class="d-block ui-w-80">
+                                    <div class="media-body ml-4">
+                                        <label class="btn btn-success">
+                                            Upload new photo
+                                            <input type="file" name="update_image" class="account-settings-fileinput">
+                                        </label> &nbsp;
+                                        <label class="btn btn-outline-primary">
+                                            Save
+                                            <input type="submit" name="finish_update_image" class="account-settings-fileinput btn btn-success">
+                                        </label> &nbsp;
 
-                                <div class="form-group">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" value="Hai Duong">
+                                    </div>
                                 </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Username(<strong>read only</strong>)</label>
+                                        <input type="text" readonly name="general_username" class="form-control mb-1" value="<?= $username[0]['username']; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" name="general_full_name" class="form-control" value="<?= $username[0]['full_name']; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" name="general_email" class="form-control" value="<?= $username[0]['email']; ?>">
+                                    </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Telephone</label>
-                                    <input type="text" class="form-control" value="+84344847295">
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-change-password">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Current password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">New password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Repeat new password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-info">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Bio</label>
-                                    <textarea class="form-control" rows="5">My name is....</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="text" class="form-control" value="May 3, 1995">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Country</label>
-                                    <select class="custom-select">
-                                        <option>USA</option>
-                                        <option selected>Canada</option>
-                                        <option>UK</option>
-                                        <option>Germany</option>
-                                        <option>France</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2">
-                                <h6 class="mb-4">Contacts</h6>
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" value="+0 (123) 456 7891">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Website</label>
-                                    <input type="text" class="form-control" value>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="general_address" value="<?= $username[0]['address']; ?>">
+                                    </div>
 
-                        <div class="tab-pane fade" id="account-connections">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
+                                    <div class="form-group">
+                                        <label class="form-label">Telephone</label>
+                                        <input type="text" class="form-control" name="general_telephone" value="<?= $username[0]['telephone']; ?>">
+                                    </div>
+                                    <button type="submit" name="update_general" class="btn btn-success saveChanges">Save changes</button>&nbsp;
+                                </div>
                             </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <h5 class="mb-2">
-                                    <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Remove</a>
-                                    <i class="ion ion-logo-google text-google"></i>
-                                    You are connected to Google:
-                                </h5>
-                                <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e70737f66697b72725e737f7772307d7173">[email&#160;protected]</a>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong></button>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-notifications">
-                            <div class="card-body pb-2">
-                                <h6 class="mb-4">Control</h6>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <div class="text-left mt-3">
-                                          <a class="btn btn-info saveChanges"  href="loginAdmin.php">Admin Sign In</a>
-                                        </div>
-                                    </label>
+                            <div class="tab-pane fade" id="account-change-password">
+                                <div class="card-body pb-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Current password</label>
+                                        <input type="password" name="current_password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">New password</label>
+                                        <input type="password" name="new_password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Repeat new password</label>
+                                        <input type="password" name="confirm_new_password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="change_pass" class="btn btn-success saveChanges">Change Password</button>&nbsp;
+                                    </div>
                                 </div>
 
                             </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2">
-                                <h6 class="mb-4">Application</h6>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" checked>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">News and announcements</span>
-                                    </label>
+
+
+                            <div class="tab-pane fade" id="account-connections">
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
                                 </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input">
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Weekly product updates</span>
-                                    </label>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <h5 class="mb-2">
+                                        <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Remove</a>
+                                        <i class="ion ion-logo-google text-google"></i>
+                                        You are connected to Google:
+                                    </h5>
+                                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e70737f66697b72725e737f7772307d7173">[email&#160;protected]</a>
                                 </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" checked>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Weekly blog digest</span>
-                                    </label>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-notifications">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Control</h6>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <div class="text-left mt-3">
+                                                <a class="btn btn-info saveChanges" href="loginAdmin.php">Admin Sign In</a>
+                                                <button type="submit" name="logout" class="btn btn-primary saveChanges">Logout</button>&nbsp;
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Application</h6>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                            <span class="switcher-label">News and announcements</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                            <span class="switcher-label">Weekly product updates</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                            <span class="switcher-label">Weekly blog digest</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="text-right mt-3">
+
+
+
+            </div>
         </div>
-        <div class="text-right mt-3">
-            <button type="button" class="btn btn-primary saveChanges">Save changes</button>&nbsp;
-            <button type="button" class="btn btn-default">Cancel</button>
-        </div>
-    </div>
+    </form>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
 
     </script>
+
 </body>
 
 </html>

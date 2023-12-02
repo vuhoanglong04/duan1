@@ -107,7 +107,9 @@
                                         <select name="id_subcategory" id="sub_category" style="font-weight:650;border:3px solid #ccc" class="btn text-left">
                                             <option value="" selected hidden>Choose Category</option>
                                             <?php foreach ($list_sub_category as $key => $value) : ?>
-                                                <option value="<?= $value['id_sub_category'] ?>"><?= $value['name_sub_category'] ?></option>
+                                                <?php $countProduct  = count_product_by_sub_category($value['id_sub_category'])[0]['quanlity'];
+                                                ?>
+                                                <option value="<?= $value['id_sub_category'] ?>"><?= $value['name_sub_category'] ?> ( <?php if($countProduct >0) echo $countProduct; else echo 0 ?> Products)</option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -160,7 +162,7 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
     </div>
 </body>

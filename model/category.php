@@ -56,3 +56,7 @@ function get_sub_category_by_id_category($category_id)
     $sql = "SELECT `id_sub_category`, `name_sub_category`, `parent_category_id` FROM `sub_category` WHERE `parent_category_id`='$category_id'";
     return pdo_query($sql);
 }
+function search_sub_category($text){
+    $sql = "SELECT * FROM `sub_category` WHERE `name_sub_category` LIKE '%$text%';";
+    return pdo_query($sql);
+}

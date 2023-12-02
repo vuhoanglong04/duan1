@@ -99,7 +99,7 @@
                             <div class="th-widget-contact">
                                 <div class="info-box">
                                     <div class="info-box_icon"><i class="fas fa-location-dot"></i></div>
-                                    <p class="info-box_text"></p>
+                                    <p class="info-box_text">Vietnam</p>
                                 </div>
                                 <div class="info-box">
                                     <div class="info-box_icon"><i class="fas fa-phone"></i></div>

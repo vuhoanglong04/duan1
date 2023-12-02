@@ -25,11 +25,11 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Sub Category</h1>
         <!-- Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
+        <form method="post" class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
             <div class="input-group mt-2 mb-2">
-                <input type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <input name="name_category_search" type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
+                    <button name="search" class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>

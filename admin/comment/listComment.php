@@ -23,44 +23,50 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Category</h1>
-        <!-- Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-250 navbar-search">
-            <div class="input-group mt-2 mb-2">
-                <input type="text" class="form-control  border-0 " style="width: 35rem; height: 3rem" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br>
-        <a href="admin.php?act=addCategory" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more category</a>
+        <h1 class="h3 mb-2 text-gray-800">Comment</h1>
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">All Category</h6>
+                <h6 class="m-0 font-weight-bold text-primary">All Comment</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>#ID</th>
-                                <th>Name Category</th>
-                                <th>Delete</th>
-                                <th>Edit</th>
+                                <th>#ID Comment</th>
+                                <th>Content</th>
+                                <th>Username</th>
+                                <th>#ID Product</th>
+                                <th>Date</th>
+                                <th>Hidden</th>
+
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php foreach ($list_category as $key => $value) : ?>
+                            <?php foreach ($list_comment as $key => $value) : ?>
                                 <tr>
-                                    <th><?= $value['category_id'] ?></th>
-                                    <th><?= $value['name_category'] ?></th>
-                                    <th><a href="category/deleteCategory.php?id=<?= $value['category_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
-                                    <th><a href="../admin/admin.php?act=editCategory&&id=<?= $value['category_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
+                                    <th><?= $value['comment_id'] ?></th>
+                                    <th><?= substr($value['content'], 0, 50) ?></th>
+                                    <th><?= $value['username'] ?></th>
+                                    <th>#<?= $value['product_id'] ?></th>
+                                    <th>#<?= $value['date'] ?></th>
+
+                                    <th>
+                                        <?php
+                                        if ($value['status'] == '1') {
+
+                                            echo '
+                                                <a href="comment/hiddenComment.php?id_comment=' . $value["comment_id"] . '" class="btn btn-primary" type="submit"><i class="fa-solid fa-eye-slash mr-2"></i>Hidden</a>
+                                            ';
+                                        } else echo '
+                                                        <a href="comment/showComment.php?id_comment=' . $value["comment_id"] . '" class="btn btn-primary" type="submit"><i class="fa-regular fa-eye mr-2"></i>Show</a>
+                                                    ';
+
+                                        ?>
+                                    </th>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
