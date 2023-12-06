@@ -93,6 +93,47 @@
         label:last-child span {
             border-radius: 0 .375em .375em 0;
         }
+
+        .list_image {
+            display: flex;
+            margin-top: 5px;
+            gap: 2px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding-bottom: 10px;
+
+            &::-webkit-scrollbar {
+                height: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #F9E8D9;
+                border-radius: 4px;
+            }
+        }
+
+        .sub_image {
+            border-radius: 5px;
+            overflow: hidden;
+            border: 2px solid #b5bfd9;
+            min-width: 5rem;
+        }
+
+        .sub_image img {
+            height: 5rem;
+            width: 5rem;
+            object-fit: cover;
+            opacity: 1;
+         
+            transition: 0.4s;
+        }
+
+        .sub_image img:hover {
+            cursor: pointer;
+            opacity: 0.8;
+            scale: 1.5 ;
+        }
     </style>
     <div class="breadcumb-wrapper" data-bg-src="assets/img/bg/breadcumb-bg.jpg">
         <div class="container">
@@ -110,7 +151,14 @@
             <div class="row gx-60">
                 <div class="col-lg-6">
                     <div class="product-big-img">
-                        <div class="img"><img src="assets/img/product/<?= get_main_image($product_id)[0]['image_path'] ?>" alt="Product Image"></div>
+                        <div class="img"><img style="object-fit: cover;" src="assets/img/product/<?= get_main_image($product_id)[0]['image_path'] ?>" alt="Product Image"></div>
+                    </div>
+                    <div class="list_image">
+                        <?php foreach ($list_image as $key => $value) : ?>
+                            <div class="sub_image">
+                                <img src="./assets/img/product/<?= $value['image_path'] ?>" alt="">
+                            </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <div class="col-lg-6 align-self-center">
@@ -190,110 +238,29 @@
                 </div>
                 <div class="swiper th-slider has-shadow" id="productSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_1.jpg" alt="Product Image"> <span class="product-tag">Hot</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Fruits</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Bosco Apple Fruit</a></h3><span class="price">$177.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                        <?php foreach ($list_related as $key => $value) : ?>
+                            <div class="swiper-slide">
+                                <div class="th-product product-grid">
+                                    <div class="product-img"><img src="assets/img/product/<?= $value['image_path'] ?>" alt="Product Image"> <span class="product-tag">Related</span>
+                                        <div class="actions">
+                                            <a href="index.php?act=shop-details&&pro=<?= $value['product_id'] ?>" class="icon-btn"><i class="far fa-eye"></i></a>
+
+                                            <a href="addWishList.php?id_pro=<?= $value['product_id'] ?>" class="icon-btn">
+                                                <i class="far fa-heart"></i>
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="product-content"><a href="index.php?act=shop" class="product-category"><?= $value['name_sub_category'] ?></a>
+                                        <h3 class="product-title"><a href="index.php?act=shop-details&&pro=<?= $value['product_id'] ?>"><?= $value['name'] ?></a></h3><span class="price">$<?= $value['price'] ?></span>
+                                        <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
+                                            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_2.jpg" alt="Product Image"> <span class="product-tag">New</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Vegetables</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Green Cauliflower</a></h3><span class="price">$39.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_3.jpg" alt="Product Image"> <span class="product-tag">Hot</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Vegetables</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Mandarin orange</a></h3><span class="price">$96.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_4.jpg" alt="Product Image"> <span class="product-tag">Sale</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Fruits</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Shallot Red onion</a></h3><span class="price">$08.85<del>$06.99</del></span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_5.jpg" alt="Product Image"> <span class="product-tag">New</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Fruits</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Sour Red Cherry</a></h3><span class="price">$32.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_6.jpg" alt="Product Image"> <span class="product-tag">Hot</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Fruits</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Strawberry Fruits</a></h3><span class="price">$30.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_7.jpg" alt="Product Image"> <span class="product-tag">New</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Fruits</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Six Ripe Banana</a></h3><span class="price">$232.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img"><img src="assets/img/product/product_1_8.jpg" alt="Product Image"> <span class="product-tag">Hot</span>
-                                    <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a> <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a> <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a></div>
-                                </div>
-                                <div class="product-content"><a href="shop-details.php" class="product-category">Fresh Meat</a>
-                                    <h3 class="product-title"><a href="shop-details.php">Sausage Ribs Beef</a></h3><span class="price">$30.85</span>
-                                    <div class="woocommerce-product-rating"><span class="count">(120 Reviews)</span>
-                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span>Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
                 <div class="d-block d-md-none mt-40 text-center">
@@ -340,7 +307,20 @@
         })
     })
 </script>
-
+<script>
+    var sub_image =document.querySelectorAll('.sub_image img');
+    var img =document.querySelector('.img img');
+    console.log(img);
+    sub_image.forEach(item=>{
+       item.addEventListener('click', function(){
+        var currenImg  = img.getAttribute('src');
+        var url = item.getAttribute('src');
+        var temp =currenImg;
+        img.setAttribute('src', url);
+        item.setAttribute('src', temp);
+       })
+    })
+</script>
 
 
 </html>

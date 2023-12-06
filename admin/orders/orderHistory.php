@@ -75,7 +75,7 @@
                                                                     <a class='dropdown-item' href='orders/confirmOrder.php?id_order=" . $value['id_order'] . "' type='button'>Confirm</a>
                                                                 ";
                                                         echo "
-                                                                <a class='dropdown-item' href='orders/cancelOrder.php?id_order=" . $value['id_order'] . "' type='button'>Cancel</a>
+                                                                <a class='dropdown-item' href='orders/cancelOrder.php?id_order=" . $value['id_order'] . "' type='button'>Cancel Order</a>
                                                                 ";
                                                     } else if ($value['status'] == "In transit") {
                                                   

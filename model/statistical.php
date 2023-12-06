@@ -4,7 +4,7 @@
         return pdo_query($sql);
     }
     function total_revenue_month() {
-        $sql ="SELECT SUM(total) as sum FROM `orders` WHERE status = 'Received' and month(date) = month(CURRENT_DATE)";
+        $sql ="SELECT SUM(total) as sum FROM `orders` WHERE status = 'Received' and month(date) = month(CURRENT_DATE) and year(date) = year(CURRENT_DATE)";
         return pdo_query($sql);
     }
 

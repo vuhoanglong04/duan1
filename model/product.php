@@ -7,7 +7,7 @@ function add_product($name_product, $price, $description, $id_sub_category)
 }
 function load_all_product()
 {
-    $sql = "SELECT * FROM `product`";
+    $sql = "SELECT * FROM `product`   order by `product_id` desc";
     return pdo_query($sql);
 }
 function get_product($product_id)
@@ -78,7 +78,7 @@ function add_product_variant($id_product, $id_origin, $id_type, $price, $quanlit
 }
 function  load_all_product_variant()
 {
-    $sql = "SELECT * FROM `product_variant`";
+    $sql = "SELECT * FROM `product_variant`  order by `id_product_variant` desc";
     return pdo_query($sql);
 }
 
@@ -203,5 +203,18 @@ function order_by_price()
 function search_product($text)
 {
     $sql = "SELECT * FROM `product` WHERE `name` LIKE '%$text%';";
+    return pdo_query($sql);
+}
+function get_related_products($id_sub_category, $id_product)
+{
+    $sql = " SELECT * FROM `product`
+    join product_image on product.product_id = product_image.product_id
+    join sub_category on product.sub_category_id = sub_category.id_sub_category
+    WHERE `sub_category_id`='$id_sub_category' AND`product`.`product_id` !='$id_product'
+    ";
+    return pdo_query($sql);
+}
+function get_list_img($id_product){
+    $sql="SELECT `id_image`, `product_id`, `image_path`, `main` FROM `product_image` WHERE `product_id`='$id_product' and `main` != '1'";
     return pdo_query($sql);
 }

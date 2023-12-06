@@ -74,10 +74,10 @@
                                     echo "Awaiting Confirmation....";
                                 } else if ($value['status'] == "In transit") {
                                     echo "In Transit...";
-                                } else if($value['status'] == "Received") {
-                                    echo "<button dis class='btn btn-success' name='received'><i class='fa-regular fa-calendar-check m-2'></i>Received</button>";
-                                }
-                                else echo "Cancelled";
+                                } else if ($value['status'] == "Received") {
+                                    echo "<a   class='btn btn-success' name='received'><i class='fa-regular fa-calendar-check m-2'></i>Received</a>
+                                    ";
+                                } else echo "Cancelled";
                                 ?>
 
                             </td>
@@ -90,10 +90,10 @@
                                         <a class="dropdown-item" href="index.php?act=detail_order&&id_order=<?= $value['id_order'] ?>" type="button">More Detail</a>
                                         <?php
                                         if ($value['status'] == "Awaiting Confirmation") {
-                                            echo "<a  href='cancelOrder.php?id_order=".$value['id_order'] ."' class='dropdown-item' name='cancel_order'><i class='fa-solid fa-ban m-1'></i>Cancel Order</a>";
+                                            echo "<a  href='cancelOrder.php?id_order=" . $value['id_order'] . "' class='dropdown-item' name='cancel_order'><i class='fa-solid fa-ban m-1'></i>Cancel Order</a>";
                                         }
                                         if ($value['status'] == "In transit") {
-                                            echo "<a  href='receivedOrder.php?id_order=".$value['id_order'] ."' class='dropdown-item' name='cancel_order'>Received</a>";
+                                            echo "<a  href='receivedOrder.php?id_order=" . $value['id_order'] . "' class='dropdown-item' name='cancel_order'>Received</a>";
                                         }
                                         ?>
                                     </div>

@@ -52,8 +52,6 @@ session_start();
     include('model/orders.php');
     include('model/comment.php');
     date_default_timezone_set('Asia/Ho_Chi_Minh');
-
-
     if (isset($_GET['act'])) {
         $act  = $_GET['act'];
         switch ($act) {
@@ -88,6 +86,10 @@ session_start();
                 $product = get_product($product_id)[0];
                 $list_origin = get_all_origin_from_product($product_id);
                 $list_type = get_all_type_from_product($product_id);
+                $list_related = get_related_products($product['id_sub_category'], $product_id);
+                $list_image = get_list_img($product_id);
+                // print_r($list_image);
+                // print_r($list_related);
                 if (isset($_POST['add_wish_lish'])) {
                     if (isset($_COOKIE['username'])) {
                         $username = $_COOKIE['username'];
@@ -99,6 +101,9 @@ session_start();
                 }
 
                 if (isset($_POST['addToCart'])) {
+                    if (!isset($_COOKIE['username'])) {
+                        header('Location: login.php');
+                    }
                     $id_origin = $_POST['origin'];
                     $id_type = $_POST['type'];
                     $product_in_cart  = get_product_variant_by_condition($product_id, $id_origin, $id_type)[0];
@@ -174,7 +179,7 @@ session_start();
                 break;
 
             case 'checkout':
-                print_r($_SESSION['order']);
+                // print_r($_SESSION['order']);
                 $user = get_user($_COOKIE['username']);
                 $fee =  get_fee_shipping($_SESSION['order'][0]['name_transport'])[0]['fee'];
                 $list_payment = get_payment();
@@ -189,23 +194,43 @@ session_start();
                         $name_transport = $_SESSION['order'][0]['name_transport'];
                         $coupon = $_SESSION['order'][0]['coupon'];
                         $total =  $_SESSION['order'][0]['total'] + $_SESSION['order'][0]['fee'] - $_SESSION['order'][0]['total'] * $_SESSION['order'][0]['percent_discount'] / 100;
-                        create_orders($_COOKIE['username'], $date, $name_transport, $coupon, $total, $payment_methods);
-                        $latest_order = get_latest_order()[0]['id_order'];
-                        foreach ($_SESSION['cart'] as $key => $value) {
-                            create_order_detail(
-                                $latest_order,
-                                $value['id_product_variant'],
-                                $value['id_origin'],
-                                $value['id_type'],
-                                $value['quanlity'],
-                                $value['price_product_variant'],
-                                $value['quanlity'] * $value['price_product_variant']
-                            );
-                        }
-                        $_SESSION['cart'] = [];
-                        $_SESSION['order'] = [];
+                        if ($payment_methods == 'VNPAY(Vietnamese)' && isset($_POST['statusX']) && $_POST['statusX'] == 'Success!!') {
+                            create_orders($_COOKIE['username'], $date, $name_transport, $coupon, $total, $payment_methods);
+                            $latest_order = get_latest_order()[0]['id_order'];
+                            foreach ($_SESSION['cart'] as $key => $value) {
+                                create_order_detail(
+                                    $latest_order,
+                                    $value['id_product_variant'],
+                                    $value['id_origin'],
+                                    $value['id_type'],
+                                    $value['quanlity'],
+                                    $value['price_product_variant'],
+                                    $value['quanlity'] * $value['price_product_variant']
+                                );
+                            }
+                            $_SESSION['cart'] = [];
+                            $_SESSION['order'] = [];
+                            header('Location: index.php?act=history');
+                        } else echo "<script>alert('Please checkout the order')</script>";
 
-                        header('Location: index.php?act=history');
+                        if ($payment_methods == 'Cash On Delivery') {
+                            create_orders($_COOKIE['username'], $date, $name_transport, $coupon, $total, $payment_methods);
+                            $latest_order = get_latest_order()[0]['id_order'];
+                            foreach ($_SESSION['cart'] as $key => $value) {
+                                create_order_detail(
+                                    $latest_order,
+                                    $value['id_product_variant'],
+                                    $value['id_origin'],
+                                    $value['id_type'],
+                                    $value['quanlity'],
+                                    $value['price_product_variant'],
+                                    $value['quanlity'] * $value['price_product_variant']
+                                );
+                            }
+                            $_SESSION['cart'] = [];
+                            $_SESSION['order'] = [];
+                            header('Location: index.php?act=history');
+                        }
                     } else echo "<script>alert('Please choose payment methods');</script>";
                 }
                 include('checkout.php');
@@ -222,6 +247,9 @@ session_start();
                 break;
             case "detail_order":
                 $id_order = $_GET['id_order'];
+                $full_order = get_order_by_id($id_order);
+                $user = get_user($_COOKIE['username']);
+                // print_r($user);
                 $order = get_detail_order_by_id($id_order);
                 // print_r($order);
                 include('detailOrder.php');
@@ -250,6 +278,9 @@ session_start();
 
             case "blog":
                 include('blog.php');
+                break;
+            case "blog-details":
+                include('blog-details.php');
                 break;
             case "login":
                 header('Location: login.php');
@@ -309,6 +340,7 @@ session_start();
 
                 include('profile.php');
                 break;
+
             default:
                 $list_trending = load_all_trending_product();
 
@@ -316,6 +348,8 @@ session_start();
                 break;
         }
     } else {
+        $list_trending = load_all_trending_product();
+
         include('home-mega-shop.php');
     }
     include('footer.php');
@@ -326,11 +360,11 @@ session_start();
     <script src="assets/js/main.js"></script>
 
 </body>
-<!-- <script src="https://tudongchat.com/js/chatbox.js"></script>
+<script src="https://tudongchat.com/js/chatbox.js"></script>
 
 <script>
     const tudong_chatbox = new TuDongChat('l9Iyu4HCp9EpKkABw9YqJ')
     tudong_chatbox.initial()
-</script> -->
+</script>
 
 </html>

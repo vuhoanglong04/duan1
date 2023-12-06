@@ -27,6 +27,8 @@
    
         <br>
         <a href="admin.php?act=addVariant" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more product variant</a>
+        <a href="admin.php?act=listVariant" class="btn btn-primary mt-2 mb-2">All Variant</a>
+
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">

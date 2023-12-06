@@ -33,7 +33,13 @@ function get_orders($username)
 }
 function get_detail_order_by_id($id_order)
 {
-    $sql = "SELECT * FROM `order_detail` WHERE  `order_id`='$id_order'";
+    $sql = "SELECT * FROM `order_detail`
+    JOIN product_variant on product_variant.id_product_variant = order_detail.id_product_variant
+    join product_image on product_image.product_id = product_variant.id_product
+    join product on product_variant.id_product = product.product_id
+    join origin on origin.id_origin = product_variant.id_origin
+    join type on type.id_type = product_variant.id_type
+    WHERE  `order_id`='$id_order' and `main` = 1";
     return pdo_query($sql);
 }
 function cancel_order($id_order)
@@ -63,5 +69,29 @@ function confirm_order($id_order)
 function load_all_orders()
 {
     $sql = "SELECT * FROM `orders` ORDER by `id_order` desc ";
+    return pdo_query($sql);
+}
+function load_all_orders_done()
+{
+    $sql = "SELECT * FROM `orders`  where `status` = 'Received' ORDER by `id_order` desc ";
+    return pdo_query($sql);
+}
+function load_all_orders_done_by_date($month, $year)
+{
+    $sql = "SELECT * FROM `orders`  where `status` = 'Received' and month(`date`) = '$month' and year(`date`) = '$year' ORDER by `id_order` desc ";
+    return pdo_query($sql);
+
+}
+function sum_total_order_by_time($month, $year){
+    $sql = "SELECT sum(`total`) as sum  FROM `orders`  where `status` = 'Received'
+     and month(`date`) ='12' and year(`date`) = '2023' ORDER by `id_order` desc";
+     return pdo_query($sql);
+}
+function get_order_by_id($order_id)
+{
+    $sql = "SELECT * FROM `orders`
+    join transport on orders.name_transport = transport.name_transport
+    
+    WHERE `id_order` = '$order_id'";
     return pdo_query($sql);
 }

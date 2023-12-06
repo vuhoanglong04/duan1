@@ -36,7 +36,26 @@
             </div>
         </form>
         <br>
-        <a href="admin.php?act=addProduct" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more product</a>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="admin.php?act=addProduct" class="btn btn-primary mt-2 mb-2"><i class="fa-solid fa-square-plus mr-3"></i>Add more product</a>
+            </div>
+            <div class="col-sm-4 d-flex">
+                <div class="dropdown  mt-2 mb-2">
+                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filter By Category
+                    </a>
+
+                    <ul class="dropdown-menu" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;" aria-labelledby="dropdownMenuLink">
+                        <?php foreach ($list_sub_category as $key => $value) : ?>
+                            <li><a class="dropdown-item item_category" id="<?= $value['id_sub_category'] ?>"><?= $value['name_sub_category'] ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <button class="btn btn-primary  mt-2 mb-2 ml-2 clear">Clear Filter</button>
+            </div>
+        </div>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -73,9 +92,9 @@
                                         <img width="100" height="100" style="object-fit: cover;" src="../assets/img/product/<?= $main_image[0]['image_path']; ?>" alt="Image">
                                     </th>
                                     <th><?= substr($value['desciption'], 0, 25); ?>...</th>
-                                    <th><?= $value['sub_category_id']; ?></th>
+                                    <th class="sub_id"><?= $value['sub_category_id']; ?></th>
                                     <th><a href="admin.php?act=imageProduct&&pro=<?= $value['product_id']; ?>" class="btn btn-primary"><i class="fa-solid fa-images mr-3"></i>Image</a></th>
-                                    <th><a href="products/deleteProduct.php?id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can mr-2"></i>Delete</a></th>
+                                    <th><a href="products/deleteProduct.php?id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-trash-can p-2"></i></a></th>
                                     <th><a href="../admin/admin.php?act=editProduct&&id=<?= $value['product_id']; ?>" class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square mr-2"></i>Edit</a></th>
                                 </tr>
                             <?php endforeach; ?>
@@ -90,5 +109,35 @@
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+    let item_category = document.querySelectorAll('.item_category');
+    let sub_id = document.querySelectorAll('.sub_id');
+
+    item_category.forEach(item => {
+        item.addEventListener('click', function() {
+            sub_id.forEach(row => {
+                if (row.parentElement.style.display = 'none') {
+                    row.parentElement.style.display = 'table-row';
+                }
+            })
+            var id = this.getAttribute('id');
+            sub_id.forEach(row => {
+                if (row.textContent != id) {
+                    row.parentElement.style.display = 'none';
+                }
+            })
+        })
+    })
+    var btnClear =document.querySelector('.clear')
+    btnClear.addEventListener('click',function(){
+        sub_id.forEach(row => {
+                if (row.parentElement.style.display = 'none') {
+                    row.parentElement.style.display = 'table-row';
+                }
+            })
+    })
+</script>
+</script>
 
 </html>

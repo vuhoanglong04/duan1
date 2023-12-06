@@ -108,7 +108,7 @@
                             <button name="clear"class="btn btn-success">Clear Filters</button>
                         </form>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-auto">
 
                         <?php foreach ($list_category as $key => $value) : ?>
                             <!-- Example single danger button -->

@@ -21,7 +21,11 @@
 
 
 <body id="page-top">
-
+    <style>
+        a.sta {
+            text-decoration: none;
+        }
+    </style>
     <div class="container-fluid">
 
         <!-- Page Heading -->
@@ -34,7 +38,7 @@
         <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <a class="col-xl-3 col-md-6 mb-4 sta" href="admin.php?act=revenue">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -49,25 +53,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Earnings (Month)</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$<?= $totalMonth ?>.00</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
@@ -108,6 +96,23 @@
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Users</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_user ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-users fa-2x text-gray-300"></i>
+
                             </div>
                         </div>
                     </div>
@@ -174,7 +179,7 @@
         <div class="row mt-5">
             <div class="col-sm-12">
                 <div class="col-sm-12">
-                    <h3 class="h4 mb-2 text-gray-800" >Sold Out Products</h3>
+                    <h3 class="h4 mb-2 text-gray-800">Sold Out Products</h3>
 
                     <div class="table-responsive" style="background-color: white;height:300px;overflow: scroll; width:100%">
                         <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
@@ -191,12 +196,12 @@
                             <tbody>
                                 <?php foreach ($sold_out as $key => $value) : ?>
                                     <tr>
-                                        <th><?= $value['id_product_variant']?></th>
-                                        <th><?= $value['product_id']?></th>
-                                        <th><?= $value['id_origin']?></th>
-                                        <th><?= $value['id_type']?></th>
-                                        <th><?= $value['name']?></th>
-                                        <th style="color:green"><?= $value['quanlity']?></th>
+                                        <th><?= $value['id_product_variant'] ?></th>
+                                        <th><?= $value['product_id'] ?></th>
+                                        <th><?= $value['id_origin'] ?></th>
+                                        <th><?= $value['id_type'] ?></th>
+                                        <th><?= $value['name'] ?></th>
+                                        <th style="color:green"><?= $value['quanlity'] ?></th>
                                     </tr>
                                 <?php endforeach; ?>
 

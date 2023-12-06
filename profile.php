@@ -250,7 +250,7 @@
                                     <div class="form-group">
                                         <label class="switcher">
                                             <div class="text-left mt-3">
-                                                <a class="btn btn-info saveChanges" href="loginAdmin.php">Admin Sign In</a>
+                                                <a class="btn btn-info saveChanges" href="admin/loginAdmin.php">Admin Sign In</a>
                                                 <button type="submit" name="logout" class="btn btn-primary saveChanges">Logout</button>&nbsp;
                                             </div>
                                         </label>

@@ -83,3 +83,13 @@ function recoverPassword($username)
     $sql = "SELECT `password`FROM `user` WHERE `username`='$username'";
     return pdo_query($sql);
 }
+function check_user($email, $user)
+{
+    $sql = "SELECT * FROM `user` WHERE `email`='$email' AND `username`='$user'";
+    return pdo_query($sql);
+}
+function newPass($email, $username,  $new_password)
+{
+    $sql = "UPDATE `user` SET `password`='$new_password' WHERE `username`='$username' AND `email`='$email'";
+    pdo_execute($sql);
+}

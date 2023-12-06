@@ -2,9 +2,8 @@
 ob_start();
 if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
 } else {
-    header('location: ../loginAdmin.php');
+    header('location: loginAdmin.php');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -325,6 +324,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                     </ul>
 
                 </nav>
+
                 <?php
                 include('../model/pdo.php');
                 include('../model/user.php');
@@ -371,6 +371,8 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case 'listSubCategory':
                             $list_sub_category = load_all_sub_category();
+                            $list_category = load_all_category();
+                            // print_r($list_category);
                             if (isset($_POST['search'])) {
                                 $name_category_search = $_POST['name_category_search'];
                                 $list_sub_category = search_sub_category($name_category_search);
@@ -380,7 +382,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                         case 'editCategory':
                             $id_category = $_GET['id'];
                             $result = get_category($id_category);
-                            print_r($result);
+                            
                             if (isset($_POST["cancel"])) {
                                 header("Location: admin.php?act=listCategory");
                             }
@@ -396,7 +398,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             $id_sub_category = $_GET['id'];
                             $list_category = load_all_category();
                             $result = get_sub_category($id_sub_category);
-                            print_r($list_category);
+                         
                             if (isset($_POST["cancel"])) {
                                 header("Location: admin.php?act=listSubCategory");
                             }
@@ -411,6 +413,8 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case "listProduct":
                             $list_product = load_all_product();
+                            $list_sub_category =   load_all_sub_category();
+                            // print_r($list_sub_category);
                             if (isset($_POST['search_product'])) {
                                 $name_product_search = $_POST['name_product_search'];
                                 $list_product = search_product($name_product_search);
@@ -479,6 +483,12 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
 
                             include('products/listProductVariant.php');
                             break;
+                        case "listVariant":
+                            $list_origin = load_all_origin();
+                            $list_type = load_all_type();
+                            // print_r($list_type);
+                            include('products/listVariant.php');
+                            break;
                         case "trendingProduct":
                             $list_trending = load_all_trending_product();
 
@@ -519,7 +529,7 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             $list_origin = load_all_origin();
                             $list_type = load_all_type();
                             $id = $_GET['id'];
-                            print_r($list_origin);
+                          
                             $product_variant = get_product_variant($id);
                             if (isset($_POST['add_variant'])) {
                                 $id_origin = $_POST['id_origin'];
@@ -585,25 +595,50 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                             break;
                         case "orderHistory":
                             $list_orders = load_all_orders();
-                            
+
                             include('orders/orderHistory.php');
                             break;
                         case "order_detail":
                             $id_order = $_GET['id_order'];
+                            $get_order = get_order_by_id($id_order);
+                            $get_user = get_user($get_order[0]['username']);
                             $order = get_detail_order_by_id($id_order);
-                            print_r($order);
+                           
                             include('orders/order_detail.php');
                             break;
                         case "statistical":
                             $totalAll = total_revenue_all()[0]['sum'];
-                            $totalMonth =  total_revenue_month()[0]['sum'];
+                            // $totalMonth =  total_revenue_month()[0]['sum'];
                             $countOrder  = count_order()[0]['countOrder'];
                             $countComment = count_comment()[0]['count'];
                             $list_user = load_all_user();
                             $new_comment = load_new_comment();
                             $sold_out = sold_out_product();
-             
+                            $count_user = pdo_query("SELECT count(username) as count FROM `user`")[0]['count'];
+
                             include('statistical/statistical.php');
+                            break;
+                        case "revenue":
+                            $total = "";
+                            $totalAll = total_revenue_all()[0]['sum'];
+                            $totalMonth =  total_revenue_month()[0]['sum'];
+                            $list_orders = load_all_orders_done();
+                            if (isset($_POST['filter'])) {
+                                $dateGet = $_POST['time'];
+                                if ($dateGet == "") {
+                                    $list_orders = load_all_orders_done();
+                                } else {
+
+                                    $date = new DateTime($dateGet);
+                                    $month = $date->format('m');
+                                    $year = $date->format('Y');
+                                    $total =  sum_total_order_by_time($month, $year)[0]['sum'];
+                                 
+                                    $list_orders =  load_all_orders_done_by_date($month, $year);
+                                }
+                            }
+                            // print_r($totalMonth);
+                            include('statistical/revenue.php');
                             break;
                         default:
                             $totalAll = total_revenue_all()[0]['sum'];
@@ -646,9 +681,9 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
@@ -659,11 +694,23 @@ if (isset($_COOKIE['username_admin']) && isset($_COOKIE['password_admin'])) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form action="loginAdmin.php" method="post">
+                        <button class="btn btn-primary" name="logout_admin" type="submit">Logout</button>
+                    </form>
+                    <?php
+                    if (isset($_POST['logout_admin'])) {
+                        setcookie("username_admin", "0", time() - 3600);
+                        setcookie("password_admin", "0", time() - 3600);
+                        unset($_COOKIE['username_admin']);
+                        unset($_COOKIE['password_admin']);
+                    }
+                    ?>
                 </div>
             </div>
+
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="assets/vendor/jquery/jquery.min.js"></script>

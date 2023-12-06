@@ -37,9 +37,155 @@
 </head>
 
 <body>
-   
-    <h3 class=" mt-5" style="text-align: center;">Order Detail #<?=$id_order ?></h3>
+    <style>
+        body {
+            background: #eee;
+        }
+
+        .card {
+            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: 1rem;
+        }
+
+        .text-reset {
+            --bs-text-opacity: 1;
+            color: inherit !important;
+        }
+
+        a {
+            color: #5465ff;
+            text-decoration: none;
+        }
+    </style>
+    <h3 class=" mt-5" style="text-align: center;">Order Detail #<?= $id_order ?></h3>
     <div class="container">
+
+        <div class="container p-0">
+            <!-- Title -->
+
+
+            <!-- Main content -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Details -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="mb-3 d-flex justify-content-between">
+                                <div>
+                                    <span class="me-3"><?= $full_order[0]['date'] ?></span>
+                                    <span class="me-3">#<?= $full_order[0]['id_order'] ?></span>
+                                    <span class="me-3"><?= $full_order[0]['status'] ?></span>
+                                </div>
+                                <div class="d-flex">
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-printer"></i> Print</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <?php foreach ($order as $key => $value) : ?>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex mb-2">
+                                                    <div class="flex-shrink-0">
+                                                        <img style='object-fit: cover;' src="./assets/img/product/<?= $value['image_path'] ?>" alt="" width="35" class="img-fluid">
+                                                    </div>
+                                                    <div class="flex-lg-grow-1 ms-3">
+                                                        <h6 class="small mb-0 mt-2 mb-2"><a href="index.php?act=shop-details&&pro=<?=$value['id_product'] ?>" class="text-reset"><?= $value['name'] ?>   <span style='font-weight: 300;'>(<?=$value['value_origin'] ?> - <?=$value['value_type'] ?>)</span></a></h6>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="mt-2">x<?= $value['quanlity'] ?></td>
+                                            <td class="text-end ">$<?= $value['total'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+
+                                    <tr>
+                                        <td colspan="2">Shipping</td>
+                                        <td class="text-end"><?= $full_order[0]['name_transport'] ?> ($<?= $full_order[0]['fee'] ?>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Discount </td>
+                                        <td class="text-danger text-end"><?= $full_order[0]['code_coupon'] ?></td>
+                                    </tr>
+                                    <tr class="fw-bold">
+                                        <td colspan="2">TOTAL</td>
+                                        <td class="text-end">$<?= $full_order[0]['total'] ?>.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Payment -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h3 class="h6">Payment Method</h3>
+                                    <p><?= $full_order[0]['payment_methods'] ?></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h3 class="h6">Billing address</h3>
+                                    <address>
+                                        <strong><?= $user[0]['full_name'] ?></strong><br>
+                                        <?= $user[0]['address'] ?><br>
+
+                                        <?= $user[0]['telephone'] ?>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <!-- Customer Notes -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="h6">Customer Notes</h3>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <!-- Shipping information -->
+                        <div class="card-body">
+                            <h3 class="h6">Shipping Information</h3>
+                            <strong><?= $full_order[0]['name_transport'] ?></strong>
+                            <hr>
+                            <h3 class="h6">Address</h3>
+                            <address>
+                                <strong><?= $user[0]['full_name'] ?></strong><br>
+                                <?= $user[0]['address'] ?><br>
+
+                                <?= $user[0]['telephone'] ?>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <table class="table table-borderless main col-sm-12">
             <thead>

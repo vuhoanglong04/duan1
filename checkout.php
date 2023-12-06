@@ -126,7 +126,7 @@
                             <th></th>
                             <th></th>
                             <th>Subtotal</th>
-                            <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><?= $_SESSION['order'][0]['total']?></bdi></span></td>
+                            <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><?= $_SESSION['order'][0]['total'] ?></bdi></span></td>
                         </tr>
                         <tr class="woocommerce-shipping-totals shipping">
                             <th></th>
@@ -144,7 +144,7 @@
                             <th></th>
                             <th></th>
                             <th>Total</th>
-                            <td data-title="Total" colspan="4"><strong><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><?= $_SESSION['order'][0]['total'] + $_SESSION['order'][0]['fee'] - $_SESSION['order'][0]['total']*$_SESSION['order'][0]['percent_discount']/100  ?></bdi></span></strong></td>
+                            <td data-title="Total" colspan="4"><strong><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><?= $_SESSION['order'][0]['total'] + $_SESSION['order'][0]['fee'] - $_SESSION['order'][0]['total'] * $_SESSION['order'][0]['percent_discount'] / 100  ?></bdi></span></strong></td>
                         </tr>
 
                     </tfoot>
@@ -157,20 +157,26 @@
                         <ul class="wc_payment_methods payment_methods methods">
                             <?php foreach ($list_payment as $key => $value) : ?>
                                 <li class="wc_payment_method payment_method_bacs">
-                                    <input id="payment_method_bacs_<?= $value['name_payment'] ?>" type="radio" class="input-radio" name="payment_method" value="<?= $value['name_payment'] ?>">
+                                    <input id="payment_method_bacs_<?= $value['name_payment'] ?>" type="radio" class="input-radio" name="payment_method" value="<?= $value['name_payment'] ?>" <?php
+                                                                                                                                                                                                if ($value['name_payment'] == 'VNPAY(Vietnamese)' && isset($_GET['vnp_TransactionStatus']) && $_GET['vnp_TransactionStatus'] == '00') {
+                                                                                                                                                                                                    echo "checked";
+                                                                                                                                                                                                }
+                                                                                                                                                                                                ?>>
                                     <label for="payment_method_bacs_<?= $value['name_payment'] ?>"><?= $value['name_payment'] ?></label>
                                     <div class="payment_box payment_method_bacs">
-                                        
+
                                         <?php
-                                        if ($value['name_payment'] == 'Direct bank transfer') {
-                                            echo "
-                                            <p>Make your payment directly into our bank account.</p>
-                                            <strong>MBBANK: 0344847295</strong>";
-                                        } else if($value['name_payment'] == 'Paypal'){
-                                            echo "<p>Make your payment directly into our bank account.</p>
-                                            <strong>Paypal: longprovip2508@gmail.com</strong>";
-                                        }
-                                        else{
+                                        if ($value['name_payment'] == 'VNPAY(Vietnamese)') {
+                                            if (isset($_GET['vnp_TransactionStatus']) && $_GET['vnp_TransactionStatus'] == '00') {
+                                                echo "
+                                                <input type='text' name='statusX' value='Success!!' readonly style='color:green ; font-size:25px'>
+                                                ";
+                                            } else {
+                                                echo "
+                                                <a class='btn btn-success' type='submit' href='gatePayment.php?redirect=1&&total=".$_SESSION['order'][0]['total'] + $_SESSION['order'][0]['fee'] - $_SESSION['order'][0]['total'] * $_SESSION['order'][0]['percent_discount'] / 100 ."' >Pay: $" . $_SESSION['order'][0]['total'] + $_SESSION['order'][0]['fee'] - $_SESSION['order'][0]['total'] * $_SESSION['order'][0]['percent_discount'] / 100 . ".00</a>
+                                                ";
+                                            }
+                                        } else {
                                             echo "";
                                         }
                                         ?>
@@ -183,6 +189,7 @@
                             <button type="submit" name="place_order" class="th-btn">Place order</button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>

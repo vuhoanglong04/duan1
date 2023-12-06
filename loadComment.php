@@ -41,16 +41,18 @@ include('model/user.php');
 
 $product_id = $_GET['product_id'];
 $date = date('Y-m-d H:i:s');
-$username ="";
-if(isset($_COOKIE['username'])){
+$username = "";
+if (isset($_COOKIE['username'])) {
     $username  = $_COOKIE['username'];
 }
 if (isset($_POST['post_review'])) {
-    $content = $_POST['content'];
-    add_comment($content, $username, $product_id, $date);
+    if (isset($_COOKIE['username'])) {
+        $content = $_POST['content'];
+        add_comment($content, $username, $product_id, $date);
+    }
 }
 $list_comment = get_list_comment($product_id);
-print_r($list_comment);
+// print_r($list_comment);
 ?>
 <style>
     .th-comment-form {
@@ -60,9 +62,11 @@ print_r($list_comment);
         width: 100%;
 
     }
-    body{
+
+    body {
         height: auto;
     }
+
     body::-webkit-scrollbar {
         width: 8px;
         /* Chiều rộng của thanh cuộn */
@@ -99,7 +103,8 @@ print_r($list_comment);
         min-width: 8px;
         min-height: 8px;
     }
-    .woocommerce-Reviews{
+
+    .woocommerce-Reviews {
         margin-bottom: 400px;
     }
 </style>
@@ -111,26 +116,33 @@ print_r($list_comment);
                 <?php foreach ($list_comment as $key => $value) : ?>
                     <li class="review th-comment-item">
                         <div class="th-post-comment">
-                            <div class="comment-avater"><img src="assets/img/user/<?=get_user($value['username'])[0]['image']?>" alt="Comment Author"></div>
+                            <div class="comment-avater"><img src="assets/img/user/<?= get_user($value['username'])[0]['image'] ?>" alt="Comment Author"></div>
                             <div class="comment-content">
-                                <h4 class="name"><?=get_user($value['username'])[0]['full_name']?></h4><span class="commented-on"><i class="far fa-calendar"></i><?=$value['date'] ?></span>
-                              
-                                <p class="text"><?=$value['content'] ?></p>
+                                <h4 class="name"><?= get_user($value['username'])[0]['full_name'] ?></h4><span class="commented-on"><i class="far fa-calendar"></i><?= $value['date'] ?></span>
+
+                                <p class="text"><?= $value['content'] ?></p>
                             </div>
                         </div>
                     </li>
                 <?php endforeach ?>
             </ul>
         </div>
-        <div class="th-comment-form" style="margin: 0">
-            <form method="post">
-                <div class="form-title">
-                    <h3 class="blog-inner-title">Add a review</h3>
-                </div>
-                <div class="col-12 form-group"><textarea placeholder="Write a Message" name="content" class="form-control mb-2"></textarea></div>
-                <div class="col-12 form-group mb-0"><button name="post_review" class="th-btn">Post Review</button></div>
-            </form>
-        </div>
+        <?php
+        if (isset($_COOKIE['username'])) {
+
+        ?>
+            <div class="th-comment-form" style="margin: 0">
+                <form method="post">
+                    <div class="form-title">
+                        <h3 class="blog-inner-title">Add a review</h3>
+                    </div>
+                    <div class="col-12 form-group"><textarea placeholder="Write a Message" name="content" class="form-control mb-2"></textarea></div>
+                    <div class="col-12 form-group mb-0"><button name="post_review" class="th-btn">Post Review</button></div>
+                </form>
+            </div>
+        <?php
+        }
+        ?>
     </div>
     </div>
 </body>

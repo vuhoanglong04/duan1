@@ -16,7 +16,7 @@ function  load_all_category()
 }
 function  load_all_sub_category()
 {
-    $sql = "SELECT * FROM `sub_category`";
+    $sql = "SELECT * FROM `sub_category`  order by `id_sub_category` desc";
     return pdo_query($sql);
 }
 function delete_sub_category($sub_category_id)
