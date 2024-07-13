@@ -1,1 +1,1 @@
-![alt text](https://drive.google.com/file/d/12dw4zm3_Drr-rk0JK6EjzF5LfwMvK-Da/view?usp=sharing "Logo Title Text 1")
+![Ảnh chụp màn hình 2024-07-13 194947](https://github.com/user-attachments/assets/b3053910-f876-4995-9f3c-9e288597fe5e)
