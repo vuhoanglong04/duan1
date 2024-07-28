@@ -42,6 +42,7 @@ HTML, CSS, JavaScript, PHP Core, Bootstrap5, MySQL, Ajax
     3. Quản lý sản phẩm
         - Thêm, sửa, xóa, cập nhập sản phẩm
         - Thêm biến thể
+     mục
     4. Quản lý danh mục
         - CRUD 
     5. Quản lý đánh giá
