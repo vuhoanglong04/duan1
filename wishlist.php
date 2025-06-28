@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <!-- Mirrored from themeholy.com/php/frutin/demo/wishlist.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:46:25 GMT -->
-
+a
 <head>
     <meta charset="utf-8   ">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
