@@ -3,7 +3,7 @@
 <!-- Mirrored from themeholy.com/php/frutin/demo/wishlist.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Nov 2023 13:46:25 GMT -->
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8   ">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Frutin - Organic and Healthy Food php Template - Wishlist</title>
     <meta name="author" content="Frutin">
